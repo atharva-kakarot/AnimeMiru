@@ -1,0 +1,251 @@
+body {
+    background-color: rgb(20, 20, 20);
+    color: white;
+}
+
+#navbar {
+    /* border: 1px solid black; */
+    margin: -8px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    width: 100%;
+    background-color: rgb(20, 20, 20);
+    z-index: 1;
+}
+
+#name-header {
+    /* border: 1px solid black; */
+    font-size: 30px;
+    margin: 6px 5px;
+    float: left;
+    font-family: 'Mochiy Pop One';
+    color: #ef476f;
+}
+
+#input-box {
+    font-size: 20px;
+    padding: 10px;
+    margin: 0px 10px;
+    width: 497px;
+    background-color: rgb(52, 52, 52);
+    border: none;
+    color: white;
+    outline: none;
+    border-radius: 5px;
+    font-family: 'Quicksand';
+}
+
+#search-button {
+    font-size: 30px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Quicksand';
+    background-color: rgb(20, 20, 20);
+    color: white;
+}
+
+#container {
+    border: 1px solid rgb(40, 40, 40);
+    height: 486px;
+    width: 497px;
+    float: left;
+    margin-left: 184px;
+    margin-top: 65px;
+    display: none;
+    position: fixed;
+    z-index: 1;
+    font-family: 'Quicksand';
+    background-color: rgb(20, 20, 20);
+    border-radius: 5px;
+    overflow-y: scroll;
+}
+
+#container::-webkit-scrollbar {
+    width: 12px;
+}
+
+#container::-webkit-scrollbar-track {
+    background: rgb(40, 40, 40);
+}
+
+#container::-webkit-scrollbar-thumb {
+    background: rgb(80, 80, 80);
+    border-radius: 20px;
+}
+
+.search-anime-cards {
+    border: 1px solid black;
+    margin: 10px;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.5s;
+}
+
+.search-anime-cards:hover {
+    background-color: rgb(40, 40, 40);
+    transition: 0.5s;
+}
+
+.search-anime-image {
+    width: 137px;
+    height: 200px;
+    contain: content;
+    /* border: 1px solid black; */
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.search-anime-details {
+    /* border: 1px solid white; */
+    height: 173px;
+    width: fit-content;
+    margin: 10px;
+    text-align: center;
+}
+
+.search-anime-title {
+    font-size: 20px;
+    /* border: 1px solid white; */
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin: 10px 10px;
+    font-family: 'Quicksand';
+    font-weight: 600;
+    text-align: left;
+}
+
+.anime-title {
+    font-size: 20px;
+    /* border: 1px solid white; */
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin: 10px 10px;
+    font-family: 'Quicksand';
+    font-weight: 600;
+    text-align: center;
+}
+
+.image {
+    width: 207px;
+    height: 270px;
+    contain: content;
+    /* border: 1px solid black; */
+    left: 0;
+    right: 0;
+    margin: auto;
+    margin-top: 15px;
+    border-radius: 10px;
+}
+
+.broadcast-div {
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: row;
+}
+
+
+#currently-airing-header {
+    float: left;
+    display: inline;
+    /* border: 1px solid white; */
+    margin-top: 100px;
+    font-family: 'Quicksand';
+    font-size: 40px;
+    margin-left: 20px;
+}
+
+#upcoming-anime-header,
+#popular-anime-header,
+#top-anime-header {
+    float: left;
+    display: inline;
+    /* border: 1px solid white; */
+    margin-top: 60px;
+    font-family: 'Quicksand';
+    font-size: 40px;
+    margin-left: 20px;
+}
+
+
+#airing-now-container,
+#top-anime-container,
+#popular-anime-container,
+#upcoming-anime-container {
+    /* border: 1px solid white; */
+    margin-top: 100px;
+    display: grid;
+    grid-auto-flow: column;
+    contain: content;
+    width: 100%;
+    overflow: hidden;
+    scroll-behavior: smooth;
+}
+
+.anime-cards {
+    /* border: 1px solid black; */
+    margin: 5px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.anime-cards:hover {
+    background-color: rgb(40, 40, 40);
+    transition: 0.5s;
+}
+
+.currently-airing-scroll-buttons {
+    float: right;
+    margin-top: 120px;
+    font-size: 30px;
+    cursor: pointer;
+    background-color: rgb(20, 20, 20);
+    color: white;
+    border: none;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.scroll-buttons {
+    float: right;
+    margin-top: 80px;
+    font-size: 30px;
+    cursor: pointer;
+    background-color: rgb(20, 20, 20);
+    border: none;
+    color: white;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.details-table {
+    /* border: 1px solid black; */
+    width: 200px;
+    margin: 10px 10px;
+    font-family: 'Quicksand';
+}
+
+.top-anime-details,
+.pop-anime-details {
+    /* border: 1px solid black; */
+    height: 114px;
+    width: fit-content;
+    margin: 10px;
+    font-family: 'Quicksand';
+}
