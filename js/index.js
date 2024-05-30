@@ -69,13 +69,20 @@ searchBtn.addEventListener("click", () => {
                 <h1 class="search-anime-title">${anime.title}</h1>
                 <table style="margin-left: 7px; height: 100px">
                 <tr>
-                <td><i class="fa-solid fa-tv"></i> ${anime.type} (${anime.episodes} Episodes)</td>
+                <td><i class="fa-solid fa-tv"></i>&nbsp;&nbsp;${anime.type} (${anime.episodes} Episodes)</td>
                 </tr>
                 <tr>
-                <td><i class="fa-regular fa-calendar"></i> ${aniSeason} ${anime.year}</td>
+                <td>
+                <div class="search-anime-details-main-div">
+                <i class="fa-regular fa-calendar"></i>&nbsp;&nbsp;
+                <div class="search-anime-details-div">
+                ${aniSeason} ${anime.aired.string}
+                </div>
+                </div>
+                </td>
                 </tr>
                 <tr>
-                <td><i class="fa-solid fa-star" style="color: gold"></i> ${anime.score}</td>
+                <td><i class="fa-solid fa-star" style="color: gold"></i>&nbsp;&nbsp;${anime.score}</td>
                 </tr>
                 </table>`
 
