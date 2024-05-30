@@ -3,17 +3,8 @@ const container = document.getElementById("container");
 const searchBtn = document.getElementById("search-button");
 const navBar = document.getElementById("navbar");
 
-
-//----------------------------------------------Adding event listener to navbar----------------------------------------------------------
-
-navBar.addEventListener("scroll", function(){
-    if (scrollY > 100){
-        navBar.style.backgroundColor = "black";
-    }
-    else{
-        navBar.style.backgroundColor = "none";
-    }
-})
+const nextBtn = document.getElementById("next-airing");
+const previousBtn = document.getElementById("previous-airing");
 
 
 //-----------------------------------------------Adding event listeners to search button-------------------------------------------------
@@ -37,7 +28,7 @@ searchBtn.addEventListener("click", () => {
 
     container.innerHTML = "";
 
-    fetch(`https://api.jikan.moe/v4/anime?q=${inputBox.value}&sfw`)
+    fetch(`https://api.jikan.moe/v4/anime?q=${inputBox.value}&sfw=true`)
         .then(response => response.json())
         .then(data => {
             console.log(data, "Search anime");
@@ -49,13 +40,39 @@ searchBtn.addEventListener("click", () => {
                 image.classList.add("search-anime-image");
                 image.src = anime.images.jpg.large_image_url;
 
+                const animeSeason = JSON.stringify(anime.season);
+                function capitalizeFirstLetter(str) {
+                    if (str === "null") {
+                        return null;
+                    }
+
+                    return str.replace(/\w/, function (char) {
+                        return char.toUpperCase();
+                    });
+                }
+
+                const aniSeason = JSON.parse(capitalizeFirstLetter(animeSeason));
+
                 const details = document.createElement("div");
                 details.classList.add("search-anime-details");
                 details.innerHTML = `
                 <h1 class="search-anime-title">${anime.title}</h1>
-                <table>
+                <table style="margin-left: 7px; height: 100px">
                 <tr>
-                <td></td>
+                <td><i class="fa-solid fa-tv"></i>&nbsp;&nbsp;${anime.type} (${anime.episodes} Episodes)</td>
+                </tr>
+                <tr>
+                <td>
+                <div class="search-anime-details-main-div">
+                <i class="fa-regular fa-calendar"></i>&nbsp;&nbsp;
+                <div class="search-anime-details-div">
+                ${aniSeason} ${anime.aired.string}
+                </div>
+                </div>
+                </td>
+                </tr>
+                <tr>
+                <td><i class="fa-solid fa-star" style="color: gold"></i>&nbsp;&nbsp;${anime.score}</td>
                 </tr>
                 </table>`
 
@@ -72,15 +89,6 @@ searchBtn.addEventListener("click", () => {
         });
     Event.stopPropagation();
 });
-
-//--------------------------------------------------------------------------------------------------------------------------------------------
-
-const AnimeBanner = document.getElementById("banner");
-
-AnimeBanner.
-
-
-//--------------------------------------------------------------------------------------------------------------------------------------------
 
 document.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {

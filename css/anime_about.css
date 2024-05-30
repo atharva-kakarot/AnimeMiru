@@ -1,22 +1,22 @@
-body{
-    background-color: rgb(81, 81, 81);
+body {
+    background-color: rgb(20, 20, 20);
     color: white;
 }
 
 #navbar {
-    /* border: 1px solid black; */
+    /* border: 1px solid white; */
     margin: -8px;
     padding: 10px;
     display: flex;
     flex-direction: row;
     position: fixed;
     width: 100%;
-    /* background-color: black; */
+    background-color: rgb(20, 20, 20);
     z-index: 1;
 }
 
 #name-header {
-    /* border: 1px solid black; */
+    /* border: 1px solid white; */
     font-size: 30px;
     margin: 6px 5px;
     float: left;
@@ -28,7 +28,7 @@ body{
     font-size: 20px;
     padding: 10px;
     margin: 0px 10px;
-    width: 500px;
+    width: 497px;
     background-color: rgb(52, 52, 52);
     border: none;
     color: white;
@@ -44,39 +44,51 @@ body{
     border: none;
     cursor: pointer;
     font-family: 'Quicksand';
-    background-color: black;
+    background-color: rgb(20, 20, 20);
     color: white;
 }
 
 #container {
     border: 1px solid rgb(40, 40, 40);
     height: 486px;
-    contain: content;
-    width: 498px;
+    width: 497px;
     float: left;
-    margin-left: 185.5px;
+    margin-left: 184px;
     margin-top: 65px;
     display: none;
     position: fixed;
     z-index: 1;
     font-family: 'Quicksand';
-    background-color: black;
+    background-color: rgb(20, 20, 20);
     border-radius: 5px;
+    overflow-y: scroll;
+}
+
+#container::-webkit-scrollbar {
+    width: 12px;
+}
+
+#container::-webkit-scrollbar-track {
+    background: rgb(40, 40, 40);
+}
+
+#container::-webkit-scrollbar-thumb {
+    background: rgb(80, 80, 80);
+    border-radius: 20px;
 }
 
 .search-anime-cards {
-    border: 1px solid black;
+    /* border: 1px solid white; */
     margin: 10px;
     height: fit-content;
     display: flex;
     flex-direction: row;
     cursor: pointer;
-    /* background-color: rgb(38, 38, 38); */
     border-radius: 5px;
     transition: 0.5s;
 }
 
-.search-anime-cards:hover{
+.search-anime-cards:hover {
     background-color: rgb(40, 40, 40);
     transition: 0.5s;
 }
@@ -85,21 +97,27 @@ body{
     width: 137px;
     height: 200px;
     contain: content;
-    /* border: 1px solid black; */
+    /* border: 1px solid white; */
     border-radius: 5px;
     margin: 10px;
 }
 
+.search-anime-details-main-div{
+    display: flex;
+    /* border: 1px solid white; */
+}
+
 .search-anime-details {
-    /* border: 1px solid black; */
+    /* border: 1px solid white; */
     height: 173px;
     width: fit-content;
     margin: 10px;
+    text-align: center;
 }
 
 .search-anime-title {
     font-size: 20px;
-    /* border: 1px solid black; */
+    /* border: 1px solid white; */
     display: -webkit-box;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -108,13 +126,12 @@ body{
     margin: 10px 10px;
     font-family: 'Quicksand';
     font-weight: 600;
+    text-align: left;
 }
 
-#banner{
-    width: 100%;
-    border: 1px solid white;
-    height: 350px;
-    margin: -8px;
-    padding: 7px;
-}
+
+
+
+
+
 

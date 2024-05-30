@@ -38,7 +38,7 @@ searchBtn.addEventListener("click", () => {
 
     container.innerHTML = "";
 
-    fetch(`https://api.jikan.moe/v4/anime?q=${inputBox.value}&sfw`)
+    fetch(`https://api.jikan.moe/v4/anime?q=${inputBox.value}&sfw=true`)
         .then(response => response.json())
         .then(data => {
             console.log(data, "Search anime");
