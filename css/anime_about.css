@@ -100,6 +100,7 @@ body {
     /* border: 1px solid white; */
     border-radius: 5px;
     margin: 10px;
+    object-fit: cover;
 }
 
 .search-anime-details-main-div{
@@ -129,15 +130,66 @@ body {
     text-align: left;
 }
 
+#title-div{
+    position: absolute;
+    border: 1px solid white;
+    background-color: rgb(40, 40, 40);
+    height: fit-content;
+    left: 0;
+    right: 0;
+    margin: auto;
+    margin-top: 69px;
+    font-family: 'Quicksand';
+    display: flex;
+    flex-direction: column;
+}
+
+#anime-title{
+    border: 1px solid white;
+    margin-left: 20px;
+    float: left;
+    width: fit-content;
+}
+
+#anime-title-jap{
+    border: 1px solid white;
+    margin-top: -15px;
+    margin-left: 20px;
+    float: left;
+    width: fit-content;
+}
+
+#genre-div{
+    border: 1px solid white;
+    font-size: 20px;
+    float: left;
+    width: fit-content;
+    margin-top: -13px;
+    margin-left: 20px;
+    margin-bottom: 21px;
+}
 
 #anime-image{
     border: 1px solid white;
     width: 287px;
-    height: 350px;
+    /* height: 350px; */
+    height: fit-content;
     float: left;
-    margin: 10px;
-    margin-top: 100px;
+    margin: 20px;
+    margin-top: 250px;
     border-radius: 10px;
+    /* object-fit: cover; */
+}
+
+#anime-details-div{
+    border: 1px solid white;
+    position: absolute;
+    width: 500px;
+    height: 350px;
+    border-radius: 10px;
+    margin-top: 250px;
+    margin-left: 350px;
+    float: left;
 }
 
 

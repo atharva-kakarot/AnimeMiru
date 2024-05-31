@@ -91,6 +91,7 @@ searchBtn.addEventListener("click", () => {
                 container.appendChild(animeCard);
 
                 animeCard.addEventListener("click", function () {
+                    localStorage.setItem("image", anime.images.jpg.large_image_url);
                     localStorage.setItem("aired", anime.aired.string);
                     localStorage.setItem("broadcast", anime.broadcast.string);
                     localStorage.setItem("type", anime.type);
@@ -199,6 +200,7 @@ fetch(`https://api.jikan.moe/v4/top/anime?filter=airing`)
             airingNowDiv.appendChild(animeCard);
 
             animeCard.addEventListener("click", function () {
+                localStorage.setItem("image", anime.images.jpg.large_image_url);
                 localStorage.setItem("aired", anime.aired.string);
                 localStorage.setItem("broadcast", anime.broadcast.string);
                 localStorage.setItem("type", anime.type);
@@ -299,6 +301,7 @@ fetch(`https://api.jikan.moe/v4/top/anime`)
             topAnimeDiv.appendChild(animeCard);
 
             animeCard.addEventListener("click", function () {
+                localStorage.setItem("image", anime.images.jpg.large_image_url);
                 localStorage.setItem("aired", anime.aired.string);
                 localStorage.setItem("broadcast", anime.broadcast.string);
                 localStorage.setItem("type", anime.type);
@@ -400,6 +403,7 @@ fetch(`https://api.jikan.moe/v4/top/anime?filter=bypopularity`)
             popAnimeDiv.appendChild(animeCard);
 
             animeCard.addEventListener("click", function () {
+                localStorage.setItem("image", anime.images.jpg.large_image_url);
                 localStorage.setItem("aired", anime.aired.string);
                 localStorage.setItem("broadcast", anime.broadcast.string);
                 localStorage.setItem("type", anime.type);

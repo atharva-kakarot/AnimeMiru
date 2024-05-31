@@ -81,6 +81,7 @@ searchBtn.addEventListener("click", () => {
                 container.appendChild(animeCard);
 
                 animeCard.addEventListener("click", function () {
+                    localStorage.setItem("image", anime.images.jpg.large_image_url);
                     localStorage.setItem("aired", anime.aired.string);
                     localStorage.setItem("broadcast", anime.broadcast.string);
                     localStorage.setItem("type", anime.type);
@@ -104,7 +105,7 @@ searchBtn.addEventListener("click", () => {
                     const themes = anime.themes;
 
                     for (let i = 0; i < themes.length; i++) {
-                        themesList.push(themes[i].name);
+                        themesList.push(" " + themes[i].name);
                     }
 
                     localStorage.setItem("themes", themesList);
@@ -113,7 +114,7 @@ searchBtn.addEventListener("click", () => {
                     const studios = anime.studios;
 
                     for (let i = 0; i < studios.length; i++) {
-                        studiosList.push(studios[i].name);
+                        studiosList.push(" " + studios[i].name);
                     }
 
                     localStorage.setItem("studios", studiosList);
@@ -122,7 +123,7 @@ searchBtn.addEventListener("click", () => {
                     const producers = anime.producers;
 
                     for (let i = 0; i < producers.length; i++) {
-                        producersList.push(producers[i].name);
+                        producersList.push(" " + producers[i].name);
                     }
 
                     localStorage.setItem("producers", producersList);
@@ -131,7 +132,7 @@ searchBtn.addEventListener("click", () => {
                     const genres = anime.genres;
 
                     for (let i = 0; i < genres.length; i++) {
-                        genreList.push(genres[i].name);
+                        genreList.push(" " + genres[i].name);
                     }
 
                     localStorage.setItem("genre", genreList);
@@ -146,8 +147,27 @@ searchBtn.addEventListener("click", () => {
 
 //----------------------------------------------------------------------------------------------------------------------------------------
 
+const animeImage = document.getElementById("anime-image");
+animeImage.src = localStorage.getItem("image");
 
+const animeTitle = document.getElementById("anime-title");
+const titleKey = localStorage.getItem("title");
+animeTitle.innerText = `${titleKey}`;
 
+const animeTitleJap = document.getElementById("anime-title-jap");
+const titleJapKey = localStorage.getItem("title japanese");
+animeTitleJap.innerText = `${titleJapKey}`;
+
+const genreDiv = document.getElementById("genre-div");
+const genreList = localStorage.getItem("genre"); 
+const themeList = localStorage.getItem("themes");
+
+if (themeList === ''){
+    genreDiv.innerText = `${genreList}`;
+}
+else{
+    genreDiv.innerText = `${genreList},${themeList}`;
+}
 
 document.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
