@@ -115,7 +115,7 @@ searchBtn.addEventListener("click", () => {
                     const themes = anime.themes;
 
                     for (let i = 0; i < themes.length; i++) {
-                        themesList.push(themes[i].name);
+                        themesList.push(" " + themes[i].name);
                     }
 
                     localStorage.setItem("themes", themesList);
@@ -124,7 +124,7 @@ searchBtn.addEventListener("click", () => {
                     const studios = anime.studios;
 
                     for (let i = 0; i < studios.length; i++) {
-                        studiosList.push(studios[i].name);
+                        studiosList.push(" " + studios[i].name);
                     }
 
                     localStorage.setItem("studios", studiosList);
@@ -133,7 +133,7 @@ searchBtn.addEventListener("click", () => {
                     const producers = anime.producers;
 
                     for (let i = 0; i < producers.length; i++) {
-                        producersList.push(producers[i].name);
+                        producersList.push(" " + producers[i].name);
                     }
 
                     localStorage.setItem("producers", producersList);
@@ -142,7 +142,7 @@ searchBtn.addEventListener("click", () => {
                     const genres = anime.genres;
 
                     for (let i = 0; i < genres.length; i++) {
-                        genreList.push(genres[i].name);
+                        genreList.push(" " + genres[i].name);
                     }
 
                     localStorage.setItem("genre", genreList);
@@ -224,7 +224,7 @@ fetch(`https://api.jikan.moe/v4/top/anime?filter=airing`)
                 const themes = anime.themes;
 
                 for (let i = 0; i < themes.length; i++) {
-                    themesList.push(themes[i].name);
+                    themesList.push(" " + themes[i].name);
                 }
 
                 localStorage.setItem("themes", themesList);
@@ -233,7 +233,7 @@ fetch(`https://api.jikan.moe/v4/top/anime?filter=airing`)
                 const studios = anime.studios;
 
                 for (let i = 0; i < studios.length; i++) {
-                    studiosList.push(studios[i].name);
+                    studiosList.push(" " + studios[i].name);
                 }
 
                 localStorage.setItem("studios", studiosList);
@@ -242,7 +242,7 @@ fetch(`https://api.jikan.moe/v4/top/anime?filter=airing`)
                 const producers = anime.producers;
 
                 for (let i = 0; i < producers.length; i++) {
-                    producersList.push(producers[i].name);
+                    producersList.push(" " + producers[i].name);
                 }
 
                 localStorage.setItem("producers", producersList);
@@ -251,7 +251,7 @@ fetch(`https://api.jikan.moe/v4/top/anime?filter=airing`)
                 const genres = anime.genres;
 
                 for (let i = 0; i < genres.length; i++) {
-                    genreList.push(genres[i].name);
+                    genreList.push(" " + genres[i].name);
                 }
 
                 localStorage.setItem("genre", genreList);
@@ -325,7 +325,7 @@ fetch(`https://api.jikan.moe/v4/top/anime`)
                 const themes = anime.themes;
 
                 for (let i = 0; i < themes.length; i++) {
-                    themesList.push(themes[i].name);
+                    themesList.push(" " + themes[i].name);
                 }
 
                 localStorage.setItem("themes", themesList);
@@ -334,7 +334,7 @@ fetch(`https://api.jikan.moe/v4/top/anime`)
                 const studios = anime.studios;
 
                 for (let i = 0; i < studios.length; i++) {
-                    studiosList.push(studios[i].name);
+                    studiosList.push(" " + studios[i].name);
                 }
 
                 localStorage.setItem("studios", studiosList);
@@ -343,7 +343,7 @@ fetch(`https://api.jikan.moe/v4/top/anime`)
                 const producers = anime.producers;
 
                 for (let i = 0; i < producers.length; i++) {
-                    producersList.push(producers[i].name);
+                    producersList.push(" " + producers[i].name);
                 }
 
                 localStorage.setItem("producers", producersList);
@@ -352,7 +352,7 @@ fetch(`https://api.jikan.moe/v4/top/anime`)
                 const genres = anime.genres;
 
                 for (let i = 0; i < genres.length; i++) {
-                    genreList.push(genres[i].name);
+                    genreList.push(" " + genres[i].name);
                 }
 
                 localStorage.setItem("genre", genreList);
@@ -427,7 +427,7 @@ fetch(`https://api.jikan.moe/v4/top/anime?filter=bypopularity`)
                 const themes = anime.themes;
 
                 for (let i = 0; i < themes.length; i++) {
-                    themesList.push(themes[i].name);
+                    themesList.push(" " + themes[i].name);
                 }
 
                 localStorage.setItem("themes", themesList);
@@ -436,7 +436,7 @@ fetch(`https://api.jikan.moe/v4/top/anime?filter=bypopularity`)
                 const studios = anime.studios;
 
                 for (let i = 0; i < studios.length; i++) {
-                    studiosList.push(studios[i].name);
+                    studiosList.push(" " + studios[i].name);
                 }
 
                 localStorage.setItem("studios", studiosList);
@@ -445,7 +445,7 @@ fetch(`https://api.jikan.moe/v4/top/anime?filter=bypopularity`)
                 const producers = anime.producers;
 
                 for (let i = 0; i < producers.length; i++) {
-                    producersList.push(producers[i].name);
+                    producersList.push(" " + producers[i].name);
                 }
 
                 localStorage.setItem("producers", producersList);
@@ -454,7 +454,7 @@ fetch(`https://api.jikan.moe/v4/top/anime?filter=bypopularity`)
                 const genres = anime.genres;
 
                 for (let i = 0; i < genres.length; i++) {
-                    genreList.push(genres[i].name);
+                    genreList.push(" " + genres[i].name);
                 }
 
                 localStorage.setItem("genre", genreList);

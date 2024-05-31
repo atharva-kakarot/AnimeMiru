@@ -158,16 +158,72 @@ const animeTitleJap = document.getElementById("anime-title-jap");
 const titleJapKey = localStorage.getItem("title japanese");
 animeTitleJap.innerText = `${titleJapKey}`;
 
+const synopsisDiv = document.getElementById("synopsis-div");
+synopsisDiv.innerHTML = `<p>${localStorage.getItem("synopsis")}</p>`
+
 const genreDiv = document.getElementById("genre-div");
-const genreList = localStorage.getItem("genre"); 
+const genreList = localStorage.getItem("genre");
 const themeList = localStorage.getItem("themes");
 
-if (themeList === ''){
+if (themeList === '') {
     genreDiv.innerText = `${genreList}`;
 }
-else{
+else {
     genreDiv.innerText = `${genreList},${themeList}`;
 }
+
+function capitalizeFirstLetter(str) {
+    if (str === "null") {
+        return null;
+    }
+
+    return str.replace(/\w/, function (char) {
+        return char.toUpperCase();
+    });
+}
+
+const aniSeason = capitalizeFirstLetter(localStorage.getItem("season"));
+
+const animeDetailsDiv = document.getElementById("anime-details-div");
+animeDetailsDiv.innerHTML =
+    `<table id="anime-info-table">
+        <tr>
+            <td>Type:</td>
+            <td>${localStorage.getItem("type")}</td>
+        </tr>
+        <tr>
+            <td>Duration:</td>
+            <td>${localStorage.getItem("duration")}</td>
+        </tr>
+        <tr>
+            <td>Broadcast:</td>
+            <td>${localStorage.getItem("broadcast")}</td>
+        </tr>
+        <tr>
+            <td>Status:</td>
+            <td>${localStorage.getItem("status")}</td>
+        </tr>
+        <tr>
+            <td>Source:</td>
+            <td>${localStorage.getItem("source")}</td>
+        </tr>
+        <tr>
+            <td>Studios:</td>
+            <td>${localStorage.getItem("studios")}</td>
+        </tr>
+        <tr>
+            <td>Producers:</td>
+            <td>${localStorage.getItem("producers")}</td>
+        </tr>
+        <tr>
+            <td>Aired:</td>
+            <td>${localStorage.getItem("aired")}</td>
+        </tr>
+        <tr>
+            <td>Season:</td>
+            <td>${aniSeason} ${localStorage.getItem("year")}</td>
+        </tr>
+    </table>`;
 
 document.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
