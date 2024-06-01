@@ -40,18 +40,21 @@ searchBtn.addEventListener("click", () => {
                 image.classList.add("search-anime-image");
                 image.src = anime.images.jpg.large_image_url;
 
-                const animeSeason = JSON.stringify(anime.season);
                 function capitalizeFirstLetter(str) {
                     if (str === "null") {
-                        return null;
+                        return "";
                     }
-
+                
                     return str.replace(/\w/, function (char) {
                         return char.toUpperCase();
                     });
                 }
 
-                const aniSeason = JSON.parse(capitalizeFirstLetter(animeSeason));
+                const aniSeason = capitalizeFirstLetter(JSON.stringify(anime.season));
+                const type = nullfunc(anime.type);
+                const episodes = nullfunc(anime.episodes);
+                const aired = nullfunc(anime.aired.string);
+                const score = nullfunc(anime.score);
 
                 const details = document.createElement("div");
                 details.classList.add("search-anime-details");
@@ -59,20 +62,20 @@ searchBtn.addEventListener("click", () => {
                 <h1 class="search-anime-title">${anime.title}</h1>
                 <table style="margin-left: 7px; height: 100px">
                 <tr>
-                <td><i class="fa-solid fa-tv"></i>&nbsp;&nbsp;${anime.type} (${anime.episodes} Episodes)</td>
+                <td><i class="fa-solid fa-tv"></i>&nbsp;&nbsp;${type} (${episodes} Episodes)</td>
                 </tr>
                 <tr>
                 <td>
                 <div class="search-anime-details-main-div">
                 <i class="fa-regular fa-calendar"></i>&nbsp;&nbsp;
                 <div class="search-anime-details-div">
-                ${aniSeason} ${anime.aired.string}
+                ${aniSeason.slice(1,-1)} ${aired}
                 </div>
                 </div>
                 </td>
                 </tr>
                 <tr>
-                <td><i class="fa-solid fa-star" style="color: gold"></i>&nbsp;&nbsp;${anime.score}</td>
+                <td><i class="fa-solid fa-star" style="color: gold"></i>&nbsp;&nbsp;${score}</td>
                 </tr>
                 </table>`
 
@@ -159,7 +162,8 @@ const titleJapKey = localStorage.getItem("title japanese");
 animeTitleJap.innerText = `${titleJapKey}`;
 
 const synopsisDiv = document.getElementById("synopsis-div");
-synopsisDiv.innerHTML = `<p>${localStorage.getItem("synopsis")}</p>`
+const synopsis = nullfunc(localStorage.getItem("synopsis"));
+synopsisDiv.innerHTML = `<p>${synopsis}</p>`
 
 const genreDiv = document.getElementById("genre-div");
 const genreList = localStorage.getItem("genre");
@@ -168,19 +172,43 @@ const themeList = localStorage.getItem("themes");
 if (themeList === '') {
     genreDiv.innerText = `${genreList}`;
 }
+else if (genreList === '') {
+    genreDiv.innerText = `${themeList}`;
+}
 else {
     genreDiv.innerText = `${genreList},${themeList}`;
 }
 
 function capitalizeFirstLetter(str) {
     if (str === "null") {
-        return null;
+        return "Unavailable";
     }
 
     return str.replace(/\w/, function (char) {
         return char.toUpperCase();
     });
 }
+
+function nullfunc(str) {
+    if (str === "null") {
+        return "Unavailable";
+    }
+    else {
+        return str;
+    }
+}
+
+const year = nullfunc(localStorage.getItem("year"));
+const type = nullfunc(localStorage.getItem("type"));
+const rating = nullfunc(localStorage.getItem("rating"));
+const episodes = nullfunc(localStorage.getItem("episodes"));
+const duration = nullfunc(localStorage.getItem("duration"));
+const broadcast = nullfunc(localStorage.getItem("broadcast"));
+const statusKey = nullfunc(localStorage.getItem("status"));
+const source = nullfunc(localStorage.getItem("source"));
+const studios = nullfunc(localStorage.getItem("studios"));
+const producers = nullfunc(localStorage.getItem("producers"));
+const aired = nullfunc(localStorage.getItem("aired"));
 
 const aniSeason = capitalizeFirstLetter(localStorage.getItem("season"));
 
@@ -189,64 +217,74 @@ animeDetailsDiv.innerHTML =
     `<table id="anime-info-table">
         <tr>
             <td>Type:</td>
-            <td>${localStorage.getItem("type")}</td>
+            <td>${type}</td>
         </tr>
         <tr>
             <td>Rating:</td>
-            <td>${localStorage.getItem("rating")}</td>
+            <td>${rating}</td>
         </tr>
         <tr>
             <td>Episodes:</td>
-            <td>${localStorage.getItem("episodes")}</td>
+            <td>${episodes}</td>
         </tr>
         <tr>
             <td>Duration:</td>
-            <td>${localStorage.getItem("duration")}</td>
+            <td>${duration}</td>
         </tr>
         <tr>
             <td>Broadcast:</td>
-            <td>${localStorage.getItem("broadcast")}</td>
+            <td>${broadcast}</td>
         </tr>
         <tr>
             <td>Status:</td>
-            <td>${localStorage.getItem("status")}</td>
+            <td>${statusKey}</td>
         </tr>
         <tr>
             <td>Source:</td>
-            <td>${localStorage.getItem("source")}</td>
+            <td>${source}</td>
         </tr>
         <tr>
             <td>Studios:</td>
-            <td>${localStorage.getItem("studios")}</td>
+            <td>${studios}</td>
         </tr>
         <tr>
             <td>Producers:</td>
-            <td>${localStorage.getItem("producers")}</td>
+            <td>${producers}</td>
         </tr>
         <tr>
             <td>Aired:</td>
-            <td>${localStorage.getItem("aired")}</td>
+            <td>${aired}</td>
         </tr>
         <tr>
             <td>Season:</td>
-            <td>${aniSeason} ${localStorage.getItem("year")}</td>
+            <td>${aniSeason}</td>
+        </tr>
+        <tr>
+            <td>Year:</td>
+            <td>${year}</td>
         </tr>
     </table>`;
+
+const score = nullfunc(localStorage.getItem("score"));
+const scoredBy = nullfunc(localStorage.getItem("scored by"));
+const rank = nullfunc(localStorage.getItem("rank"));
+const popularity = nullfunc(localStorage.getItem("popularity"));
+
 
 const animeStatsDiv = document.getElementById("anime-stats-div");
 animeStatsDiv.innerHTML =
     `<table id="anime-stats-table">
         <tr>
             <td>Score:</td>
-            <td>${localStorage.getItem("score")} (${localStorage.getItem("scored by")})</td>
+            <td>${score} (${scoredBy})</td>
         </tr>
         <tr>
             <td>Rank:</td>
-            <td>#${localStorage.getItem("rank")}</td>
+            <td>#${rank}</td>
         </tr>
         <tr>
             <td>Popularity:</td>
-            <td>#${localStorage.getItem("popularity")}</td>
+            <td>#${popularity}</td>
         </tr>
     </table>`;
 

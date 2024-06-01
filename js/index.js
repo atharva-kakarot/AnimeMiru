@@ -6,6 +6,27 @@ const navBar = document.getElementById("navbar");
 const nextBtn = document.getElementById("next-airing");
 const previousBtn = document.getElementById("previous-airing");
 
+function localStorageFunc(str) {
+    localStorage.setItem("image", str.images.jpg.large_image_url);
+    localStorage.setItem("aired", str.aired.string);
+    localStorage.setItem("broadcast", str.broadcast.string);
+    localStorage.setItem("type", str.type);
+    localStorage.setItem("duration", str.duration);
+    localStorage.setItem("episodes", str.episodes);
+    localStorage.setItem("popularity", str.popularity);
+    localStorage.setItem("rank", str.rank);
+    localStorage.setItem("rating", str.rating);
+    localStorage.setItem("score", str.score);
+    localStorage.setItem("scored by", str.scored_by);
+    localStorage.setItem("source", str.source);
+    localStorage.setItem("season", str.season);
+    localStorage.setItem("status", str.status);
+    localStorage.setItem("synopsis", str.synopsis);
+    localStorage.setItem("title", str.title);
+    localStorage.setItem("title japanese", str.title_japanese);
+    localStorage.setItem("year", str.year);
+}
+
 //-----------------------------------------------Adding event listeners to scroll buttons--------------------------------------------------
 
 nextBtn.addEventListener("click", function () {
@@ -50,10 +71,9 @@ searchBtn.addEventListener("click", () => {
                 image.classList.add("search-anime-image");
                 image.src = anime.images.jpg.large_image_url;
 
-                const animeSeason = JSON.stringify(anime.season);
                 function capitalizeFirstLetter(str) {
                     if (str === "null") {
-                        return null;
+                        return "";
                     }
 
                     return str.replace(/\w/, function (char) {
@@ -61,7 +81,11 @@ searchBtn.addEventListener("click", () => {
                     });
                 }
 
-                const aniSeason = JSON.parse(capitalizeFirstLetter(animeSeason));
+                const aniSeason = capitalizeFirstLetter(JSON.stringify(anime.season));
+                const type = nullfunc(anime.type);
+                const episodes = nullfunc(anime.episodes);
+                const aired = nullfunc(anime.aired.string);
+                const score = nullfunc(anime.score);
 
                 const details = document.createElement("div");
                 details.classList.add("search-anime-details");
@@ -69,20 +93,20 @@ searchBtn.addEventListener("click", () => {
                 <h1 class="search-anime-title">${anime.title}</h1>
                 <table style="margin-left: 7px; height: 100px">
                 <tr>
-                <td><i class="fa-solid fa-tv"></i>&nbsp;&nbsp;${anime.type} (${anime.episodes} Episodes)</td>
+                <td><i class="fa-solid fa-tv"></i>&nbsp;&nbsp;${type} (${episodes} Episodes)</td>
                 </tr>
                 <tr>
                 <td>
                 <div class="search-anime-details-main-div">
                 <i class="fa-regular fa-calendar"></i>&nbsp;&nbsp;
                 <div class="search-anime-details-div">
-                ${aniSeason} ${anime.aired.string}
+                ${aniSeason.slice(1, -1)} ${aired}
                 </div>
                 </div>
                 </td>
                 </tr>
                 <tr>
-                <td><i class="fa-solid fa-star" style="color: gold"></i>&nbsp;&nbsp;${anime.score}</td>
+                <td><i class="fa-solid fa-star" style="color: gold"></i>&nbsp;&nbsp;${score}</td>
                 </tr>
                 </table>`
 
@@ -91,25 +115,7 @@ searchBtn.addEventListener("click", () => {
                 container.appendChild(animeCard);
 
                 animeCard.addEventListener("click", function () {
-                    localStorage.setItem("image", anime.images.jpg.large_image_url);
-                    localStorage.setItem("aired", anime.aired.string);
-                    localStorage.setItem("broadcast", anime.broadcast.string);
-                    localStorage.setItem("type", anime.type);
-                    localStorage.setItem("duration", anime.duration);
-                    localStorage.setItem("episodes", anime.episodes);
-                    localStorage.setItem("popularity", anime.popularity);
-                    localStorage.setItem("rank", anime.rank);
-                    localStorage.setItem("rating", anime.rating);
-                    localStorage.setItem("score", anime.score);
-                    localStorage.setItem("scored by", anime.scored_by);
-                    localStorage.setItem("source", anime.source);
-                    localStorage.setItem("season", anime.season);
-                    localStorage.setItem("status", anime.status);
-                    localStorage.setItem("synopsis", anime.synopsis);
-                    localStorage.setItem("title", anime.title);
-                    localStorage.setItem("title japanese", anime.title_japanese);
-                    localStorage.setItem("year", anime.year);
-
+                    localStorageFunc(anime);
 
                     const themesList = [];
                     const themes = anime.themes;
@@ -171,6 +177,16 @@ fetch(`https://api.jikan.moe/v4/top/anime?filter=airing`)
             image.classList.add("image");
             image.src = anime.images.jpg.large_image_url;
 
+            function nullfunc(str) {
+                if (str === null) {
+                    return "Unavailable";
+                }
+                else {
+                    return str;
+                }
+            }
+            const broadcastString = nullfunc(anime.broadcast.string);
+
             const details = document.createElement("div");
             details.classList.add("search-anime-details");
             details.innerHTML = `
@@ -188,7 +204,7 @@ fetch(`https://api.jikan.moe/v4/top/anime?filter=airing`)
                 <i class="fa-solid fa-tower-broadcast" style="color: limegreen"></i>
                 </div>&nbsp
                 <div class="broadcast-value-div">
-                ${anime.broadcast.string}
+                ${broadcastString}
                 </div>
                 </div>
                 </td>
@@ -200,26 +216,8 @@ fetch(`https://api.jikan.moe/v4/top/anime?filter=airing`)
             airingNowDiv.appendChild(animeCard);
 
             animeCard.addEventListener("click", function () {
-                localStorage.setItem("image", anime.images.jpg.large_image_url);
-                localStorage.setItem("aired", anime.aired.string);
-                localStorage.setItem("broadcast", anime.broadcast.string);
-                localStorage.setItem("type", anime.type);
-                localStorage.setItem("duration", anime.duration);
-                localStorage.setItem("episodes", anime.episodes);
-                localStorage.setItem("popularity", anime.popularity);
-                localStorage.setItem("rank", anime.rank);
-                localStorage.setItem("rating", anime.rating);
-                localStorage.setItem("score", anime.score);
-                localStorage.setItem("scored by", anime.scored_by);
-                localStorage.setItem("source", anime.source);
-                localStorage.setItem("season", anime.season);
-                localStorage.setItem("status", anime.status);
-                localStorage.setItem("synopsis", anime.synopsis);
-                localStorage.setItem("title", anime.title);
-                localStorage.setItem("title japanese", anime.title_japanese);
-                localStorage.setItem("year", anime.year);
-
-
+                localStorageFunc(anime);
+                 
                 const themesList = [];
                 const themes = anime.themes;
 
@@ -301,25 +299,7 @@ fetch(`https://api.jikan.moe/v4/top/anime`)
             topAnimeDiv.appendChild(animeCard);
 
             animeCard.addEventListener("click", function () {
-                localStorage.setItem("image", anime.images.jpg.large_image_url);
-                localStorage.setItem("aired", anime.aired.string);
-                localStorage.setItem("broadcast", anime.broadcast.string);
-                localStorage.setItem("type", anime.type);
-                localStorage.setItem("duration", anime.duration);
-                localStorage.setItem("episodes", anime.episodes);
-                localStorage.setItem("popularity", anime.popularity);
-                localStorage.setItem("rank", anime.rank);
-                localStorage.setItem("rating", anime.rating);
-                localStorage.setItem("score", anime.score);
-                localStorage.setItem("scored by", anime.scored_by);
-                localStorage.setItem("source", anime.source);
-                localStorage.setItem("season", anime.season);
-                localStorage.setItem("status", anime.status);
-                localStorage.setItem("synopsis", anime.synopsis);
-                localStorage.setItem("title", anime.title);
-                localStorage.setItem("title japanese", anime.title_japanese);
-                localStorage.setItem("year", anime.year);
-
+                localStorageFunc(anime);
 
                 const themesList = [];
                 const themes = anime.themes;
@@ -403,25 +383,7 @@ fetch(`https://api.jikan.moe/v4/top/anime?filter=bypopularity`)
             popAnimeDiv.appendChild(animeCard);
 
             animeCard.addEventListener("click", function () {
-                localStorage.setItem("image", anime.images.jpg.large_image_url);
-                localStorage.setItem("aired", anime.aired.string);
-                localStorage.setItem("broadcast", anime.broadcast.string);
-                localStorage.setItem("type", anime.type);
-                localStorage.setItem("duration", anime.duration);
-                localStorage.setItem("episodes", anime.episodes);
-                localStorage.setItem("popularity", anime.popularity);
-                localStorage.setItem("rank", anime.rank);
-                localStorage.setItem("rating", anime.rating);
-                localStorage.setItem("score", anime.score);
-                localStorage.setItem("scored by", anime.scored_by);
-                localStorage.setItem("source", anime.source);
-                localStorage.setItem("season", anime.season);
-                localStorage.setItem("status", anime.status);
-                localStorage.setItem("synopsis", anime.synopsis);
-                localStorage.setItem("title", anime.title);
-                localStorage.setItem("title japanese", anime.title_japanese);
-                localStorage.setItem("year", anime.year);
-
+                localStorageFunc(anime);
 
                 const themesList = [];
                 const themes = anime.themes;
