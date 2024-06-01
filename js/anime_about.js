@@ -192,6 +192,14 @@ animeDetailsDiv.innerHTML =
             <td>${localStorage.getItem("type")}</td>
         </tr>
         <tr>
+            <td>Rating:</td>
+            <td>${localStorage.getItem("rating")}</td>
+        </tr>
+        <tr>
+            <td>Episodes:</td>
+            <td>${localStorage.getItem("episodes")}</td>
+        </tr>
+        <tr>
             <td>Duration:</td>
             <td>${localStorage.getItem("duration")}</td>
         </tr>
@@ -222,6 +230,23 @@ animeDetailsDiv.innerHTML =
         <tr>
             <td>Season:</td>
             <td>${aniSeason} ${localStorage.getItem("year")}</td>
+        </tr>
+    </table>`;
+
+const animeStatsDiv = document.getElementById("anime-stats-div");
+animeStatsDiv.innerHTML =
+    `<table id="anime-stats-table">
+        <tr>
+            <td>Score:</td>
+            <td>${localStorage.getItem("score")} (${localStorage.getItem("scored by")})</td>
+        </tr>
+        <tr>
+            <td>Rank:</td>
+            <td>#${localStorage.getItem("rank")}</td>
+        </tr>
+        <tr>
+            <td>Popularity:</td>
+            <td>#${localStorage.getItem("popularity")}</td>
         </tr>
     </table>`;
 

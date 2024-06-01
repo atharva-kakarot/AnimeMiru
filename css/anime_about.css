@@ -4,7 +4,7 @@ body {
 }
 
 #navbar {
-    border: 1px solid white;
+    /* border: 1px solid white; */
     margin: -8px;
     padding: 10px;
     display: flex;
@@ -103,7 +103,7 @@ body {
     object-fit: cover;
 }
 
-.search-anime-details-main-div{
+.search-anime-details-main-div {
     display: flex;
     /* border: 1px solid white; */
 }
@@ -130,9 +130,9 @@ body {
     text-align: left;
 }
 
-#title-div{
+#title-div {
     position: absolute;
-    border: 1px solid white;
+    /* border: 1px solid white; */
     background-color: rgb(40, 40, 40);
     height: fit-content;
     left: 0;
@@ -144,23 +144,23 @@ body {
     flex-direction: column;
 }
 
-#anime-title{
-    border: 1px solid white;
+#anime-title {
+    /* border: 1px solid white; */
     margin-left: 20px;
     float: left;
     width: fit-content;
 }
 
-#anime-title-jap{
-    border: 1px solid white;
+#anime-title-jap {
+    /* border: 1px solid white; */
     margin-top: -15px;
     margin-left: 20px;
     float: left;
     width: fit-content;
 }
 
-#anime-outermost-details-div{
-    border: 1px solid white;
+#anime-outermost-details-div {
+    /* border: 1px solid white; */
     display: flex;
     flex-direction: column;
     height: fit-content;
@@ -171,8 +171,8 @@ body {
     margin-top: 250px;
 }
 
-#synopsis-div{
-    border: 1px solid white;
+#synopsis-div {
+    /* border: 1px solid white; */
     border-radius: 10px;
     margin: 20px;
     padding: 20px;
@@ -182,8 +182,8 @@ body {
     background-color: rgb(40, 40, 40);
 }
 
-#genre-div{
-    border: 1px solid white;
+#genre-div {
+    /* border: 1px solid white; */
     font-size: 20px;
     float: left;
     width: fit-content;
@@ -192,14 +192,14 @@ body {
     margin-bottom: 21px;
 }
 
-#anime-details-main-div{
+#anime-details-main-div {
     display: flex;
     flex-direction: row;
-    border: 1px solid white;
+    /* border: 1px solid white; */
 }
 
-#anime-image{
-    border: 1px solid white;
+#anime-image {
+    /* border: 1px solid white; */
     width: 287px;
     height: fit-content;
     float: left;
@@ -207,8 +207,19 @@ body {
     border-radius: 10px;
 }
 
-#anime-details-div{
-    border: 1px solid white;
+#anime-stats-div {
+    /* border: 1px solid white; */
+    width: fit-content;
+    height: fit-content;
+    border-radius: 10px;
+    float: left;
+    margin: 20px 0px;
+    margin-right: 20px;
+    background-color: rgb(40, 40, 40);
+}
+
+#anime-details-div {
+    /* border: 1px solid white; */
     width: fit-content;
     height: fit-content;
     border-radius: 10px;
@@ -217,16 +228,32 @@ body {
     background-color: rgb(40, 40, 40);
 }
 
-#anime-info-table{
-    border: 1px solid white;
+#anime-stats-table {
+    /* border: 1px solid white; */
     font-family: 'Quicksand';
     font-size: 20px;
     margin: 20px;
-    height: 300px;
 }
 
+#anime-info-table {
+    /* border: 1px solid white; */
+    font-family: 'Quicksand';
+    font-size: 20px;
+    margin: 20px;
+}
 
+#anime-stats-table tr, #anime-info-table tr {
+    height: 30px;
+}
 
+#anime-stats-table td:first-child, #anime-info-table td:first-child {
+    width: 110px;
+}
 
+#anime-stats-table td:last-child {
+    width: 150px;
+}
 
-
+#anime-info-table td:last-child {
+    width: 300px;
+}
