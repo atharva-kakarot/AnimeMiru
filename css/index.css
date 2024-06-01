@@ -4,7 +4,6 @@ body {
 }
 
 #navbar {
-    /* border: 1px solid white; */
     margin: -8px;
     padding: 10px;
     display: flex;
@@ -16,7 +15,6 @@ body {
 }
 
 #name-header {
-    /* border: 1px solid white; */
     font-size: 30px;
     margin: 6px 5px;
     float: left;
@@ -78,7 +76,6 @@ body {
 }
 
 .search-anime-cards {
-    /* border: 1px solid white; */
     margin: 10px;
     height: fit-content;
     display: flex;
@@ -97,7 +94,6 @@ body {
     width: 137px;
     height: 200px;
     contain: content;
-    /* border: 1px solid white; */
     border-radius: 5px;
     margin: 10px;
     object-fit: cover;
@@ -105,11 +101,9 @@ body {
 
 .search-anime-details-main-div{
     display: flex;
-    /* border: 1px solid white; */
 }
 
 .search-anime-details {
-    /* border: 1px solid white; */
     height: 173px;
     width: fit-content;
     margin: 10px;
@@ -118,7 +112,6 @@ body {
 
 .search-anime-title {
     font-size: 20px;
-    /* border: 1px solid white; */
     display: -webkit-box;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -132,7 +125,6 @@ body {
 
 .anime-title {
     font-size: 20px;
-    /* border: 1px solid white; */
     display: -webkit-box;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -158,7 +150,6 @@ body {
 }
 
 .broadcast-div {
-    /* border: 1px solid white; */
     display: flex;
     flex-direction: row;
 }
@@ -167,7 +158,6 @@ body {
 #currently-airing-header {
     float: left;
     display: inline;
-    /* border: 1px solid white; */
     margin-top: 100px;
     font-family: 'Quicksand';
     font-size: 40px;
@@ -179,7 +169,6 @@ body {
 #top-anime-header {
     float: left;
     display: inline;
-    /* border: 1px solid white; */
     margin-top: 60px;
     font-family: 'Quicksand';
     font-size: 40px;
@@ -191,7 +180,6 @@ body {
 #top-anime-container,
 #popular-anime-container,
 #upcoming-anime-container {
-    /* border: 1px solid white; */
     margin-top: 100px;
     display: grid;
     grid-auto-flow: column;
@@ -202,7 +190,6 @@ body {
 }
 
 .anime-cards {
-    /* border: 1px solid white; */
     margin: 5px;
     height: fit-content;
     display: flex;
@@ -242,7 +229,6 @@ body {
 }
 
 .details-table {
-    /* border: 1px solid white; */
     width: 200px;
     margin: 10px 10px;
     font-family: 'Quicksand';
@@ -250,7 +236,6 @@ body {
 
 .top-anime-details,
 .pop-anime-details {
-    /* border: 1px solid white; */
     height: 114px;
     width: fit-content;
     margin: 10px;

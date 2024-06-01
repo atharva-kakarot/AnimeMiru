@@ -101,6 +101,7 @@ searchBtn.addEventListener("click", () => {
                     localStorage.setItem("synopsis", anime.synopsis);
                     localStorage.setItem("title", anime.title);
                     localStorage.setItem("title japanese", anime.title_japanese);
+                    localStorage.setItem("title english", anime.title_english);
                     localStorage.setItem("year", anime.year);
 
 
@@ -160,6 +161,10 @@ animeTitle.innerText = `${titleKey}`;
 const animeTitleJap = document.getElementById("anime-title-jap");
 const titleJapKey = localStorage.getItem("title japanese");
 animeTitleJap.innerText = `${titleJapKey}`;
+
+const animeTitleEng = document.getElementById("anime-title-eng");
+const titleEngKey = localStorage.getItem("title english");
+animeTitleEng.innerText = `${titleEngKey}`;
 
 const synopsisDiv = document.getElementById("synopsis-div");
 const synopsis = nullfunc(localStorage.getItem("synopsis"));

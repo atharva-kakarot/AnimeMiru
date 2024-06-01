@@ -24,7 +24,17 @@ function localStorageFunc(str) {
     localStorage.setItem("synopsis", str.synopsis);
     localStorage.setItem("title", str.title);
     localStorage.setItem("title japanese", str.title_japanese);
+    localStorage.setItem("title english", str.title_english);
     localStorage.setItem("year", str.year);
+}
+
+function nullfunc(str) {
+    if (str === null) {
+        return "Unavailable";
+    }
+    else {
+        return str;
+    }
 }
 
 //-----------------------------------------------Adding event listeners to scroll buttons--------------------------------------------------
@@ -177,14 +187,6 @@ fetch(`https://api.jikan.moe/v4/top/anime?filter=airing`)
             image.classList.add("image");
             image.src = anime.images.jpg.large_image_url;
 
-            function nullfunc(str) {
-                if (str === null) {
-                    return "Unavailable";
-                }
-                else {
-                    return str;
-                }
-            }
             const broadcastString = nullfunc(anime.broadcast.string);
 
             const details = document.createElement("div");
