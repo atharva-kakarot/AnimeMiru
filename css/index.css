@@ -190,6 +190,7 @@ body {
 }
 
 .anime-cards {
+    /* border: 1px solid white; */
     margin: 5px;
     height: fit-content;
     display: flex;
@@ -197,6 +198,56 @@ body {
     border-radius: 10px;
     cursor: pointer;
     transition: 0.5s;
+}
+
+.airing-now-anime-cards {
+    /* border: 1px solid white; */
+    margin: 5px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.airing-now-anime-cards:hover {
+    background-color: rgb(40, 40, 40);
+    transition: 0.5s;
+}
+
+.airing-now-image {
+    width: 257px;
+    height: 320px;
+    contain: content;
+    border: 1px solid black;
+    left: 0;
+    right: 0;
+    margin: auto;
+    margin-top: 16px;
+    border-radius: 10px;
+    object-fit: cover;
+    /* border: 1px solid white; */
+}
+
+.airing-now-anime-details {
+    
+    width: fit-content;
+    margin: 10px;
+    text-align: center;
+    /* border: 1px solid white; */
+    height: 242px;
+}
+
+.airing-now-details-table {
+    width: 250px;
+    margin: 10px 10px;
+    font-family: 'Quicksand';
+    /* border: 1px solid white; */
+}
+
+.airing-now-details-table tr {
+    height: 30px;
 }
 
 .anime-cards:hover {

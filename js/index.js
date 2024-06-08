@@ -7,30 +7,74 @@ const nextBtn = document.getElementById("next-airing");
 const previousBtn = document.getElementById("previous-airing");
 
 function localStorageFunc(str) {
-    localStorage.setItem("image", str.images.jpg.large_image_url);
-    localStorage.setItem("aired", str.aired.string);
-    localStorage.setItem("broadcast", str.broadcast.string);
-    localStorage.setItem("type", str.type);
+    localStorage.setItem("image", str.coverImage.extraLarge);
+    localStorage.setItem("start year", str.startDate.year);
+    localStorage.setItem("start month", str.startDate.month);
+    localStorage.setItem("start day", str.startDate.day);
+    localStorage.setItem("end year", str.endDate.year);
+    localStorage.setItem("end month", str.endDate.month);
+    localStorage.setItem("end day", str.endDate.day);
+    localStorage.setItem("format", str.format);
     localStorage.setItem("duration", str.duration);
     localStorage.setItem("episodes", str.episodes);
     localStorage.setItem("popularity", str.popularity);
-    localStorage.setItem("rank", str.rank);
-    localStorage.setItem("rating", str.rating);
-    localStorage.setItem("score", str.score);
-    localStorage.setItem("scored by", str.scored_by);
+    localStorage.setItem("favourites", str.favourites);
+    localStorage.setItem("score", str.averageScore);
+    localStorage.setItem("id", str.id);
+    localStorage.setItem("banner image", str.bannerImage);
+
+    const sourceMap = {
+        "ORIGINAL": "Original",
+        "MANGA": "Manga",
+        "LIGHT_NOVEL": "Light Novel",
+        "VISUAL_NOVEL": "Visual Novel",
+        "VIDEO_GAME": "Video Game",
+        "OTHER": "Other",
+        "NOVEL": "Novel",
+        "DOUJINSHI": "Doujinshi",
+        "ANIME": "Anime",
+        "WEB_NOVEL": "Web Novel",
+        "LIVE_ACTION": "Live Action",
+        "GAME": "Game",
+        "COMIC": "Comic",
+        "MULTIMEDIA_PROJECT": "Multimedia Project",
+        "PICTURE_BOOK": "Picture Book",
+    };
+
+    str.source = sourceMap[str.source] || str.source;
     localStorage.setItem("source", str.source);
+
+    const seasonMap = {
+        "WINTER": "Winter",
+        "SPRING": "Spring",
+        "SUMMER": "Summer",
+        "FALL": "Fall",
+    };
+
+    str.season = seasonMap[str.season] || str.season;
     localStorage.setItem("season", str.season);
+
+    const statusMap = {
+        "FINISHED": "Finished",
+        "RELEASING": "Releasing",
+        "NOT_YET_RELEASED": "Not Yet Released",
+        "CANCELLED": "Cancelled",
+        "HIATUS": "Hiatus"
+    };
+
+    str.status = statusMap[str.status] || str.status;
     localStorage.setItem("status", str.status);
-    localStorage.setItem("synopsis", str.synopsis);
-    localStorage.setItem("title", str.title);
-    localStorage.setItem("title japanese", str.title_japanese);
-    localStorage.setItem("title english", str.title_english);
-    localStorage.setItem("year", str.year);
+
+    localStorage.setItem("description", str.description);
+    localStorage.setItem("title", str.title.romaji);
+    localStorage.setItem("title native", str.title.native);
+    localStorage.setItem("title english", str.title.english);
 }
+
 
 function nullfunc(str) {
     if (str === null) {
-        return "Unavailable";
+        return "N/A";
     }
     else {
         return str;
@@ -69,279 +113,489 @@ searchBtn.addEventListener("click", () => {
 
     container.innerHTML = "";
 
-    fetch(`https://api.jikan.moe/v4/anime?q=${inputBox.value}&sfw=true`)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data, "Search anime");
-            for (const anime of data.data) {
-                const animeCard = document.createElement("div");
-                animeCard.classList.add("search-anime-cards");
-
-                const image = document.createElement("img");
-                image.classList.add("search-anime-image");
-                image.src = anime.images.jpg.large_image_url;
-
-                function capitalizeFirstLetter(str) {
-                    if (str === "null") {
-                        return "";
+    var query = `
+query ($title: String) {
+    Page {
+        media (search: $title, type: ANIME, isAdult: false) {
+            id
+            title {
+              romaji
+              english
+              native
+            }
+            description
+      startDate {
+        year
+        month
+        day
+      }
+      endDate {
+        year
+        month
+        day
+      }
+      season
+      episodes
+      relations {
+        edges {
+            id
+            relationType
+                node {
+                    title {
+                        romaji
+                        english
+                        native
                     }
+                }         
+            }
+        }
+      duration
+      format
+      status
+      studios {
+        nodes {
+            id
+            name
+        }
+      }
+      genres
+      source
+      stats {
+        scoreDistribution {
+          amount
+        }
+      }
+      averageScore
+      popularity
+      favourites
+      coverImage {
+        large
+        extraLarge
+      }
+      bannerImage
 
-                    return str.replace(/\w/, function (char) {
-                        return char.toUpperCase();
-                    });
+          }
+        }
+    }`;
+
+    var variables = {
+        title: inputBox.value,
+    };
+
+    var url = 'https://graphql.anilist.co',
+        options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify({
+                query: query,
+                variables: variables
+            })
+        };
+
+    fetch(url, options).then(handleResponse)
+        .then(handleData)
+        .catch(handleError);
+
+    function handleResponse(response) {
+        return response.json().then(function (json) {
+            return response.ok ? json : Promise.reject(json);
+        });
+    }
+
+    function handleData(data) {
+        console.log(data, "Search anime");
+        for (const anime of data.data.Page.media) {
+            const animeCard = document.createElement("div");
+            animeCard.classList.add("search-anime-cards");
+
+            const image = document.createElement("img");
+            image.classList.add("search-anime-image");
+            image.src = anime.coverImage.extraLarge;
+
+            const format = nullfunc(anime.format);
+            const episodes = nullfunc(anime.episodes);
+            const season = nullfunc(anime.season);
+            const endDate = nullfunc(anime.endDate.year);
+            const averageScore = nullfunc(anime.averageScore);
+
+            const details = document.createElement("div");
+            details.classList.add("search-anime-details");
+            details.innerHTML = `
+                    <h1 class="search-anime-title">${anime.title.romaji}</h1>
+                    <table style="margin-left: 7px; height: 100px">
+                    <tr>
+                    <td><i class="fa-solid fa-tv"></i>&nbsp;&nbsp;${format} (${episodes} Episodes)</td>
+                    </tr>
+                    <tr>
+                    <td>
+                    <div class="search-anime-details-main-div">
+                    <i class="fa-regular fa-calendar"></i>&nbsp;&nbsp;
+                    <div class="search-anime-details-div">
+                    ${season} ${endDate}
+                    </div>
+                    </div>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td><i class="fa-solid fa-star" style="color: gold"></i>&nbsp;&nbsp;${averageScore}%</td>
+                    </tr>
+                    </table>`
+
+            animeCard.appendChild(image);
+            animeCard.appendChild(details);
+            container.appendChild(animeCard);
+
+            animeCard.addEventListener("click", function () {
+                localStorageFunc(anime);
+
+                const studiosList = [];
+                const nodes = anime.studios.nodes;
+
+                for (let i = 0; i < nodes.length; i++) {
+                    studiosList.push(" " + nodes[i].name);
                 }
 
-                const aniSeason = capitalizeFirstLetter(JSON.stringify(anime.season));
-                const type = nullfunc(anime.type);
-                const episodes = nullfunc(anime.episodes);
-                const aired = nullfunc(anime.aired.string);
-                const score = nullfunc(anime.score);
+                localStorage.setItem("studios", studiosList);
 
-                const details = document.createElement("div");
-                details.classList.add("search-anime-details");
-                details.innerHTML = `
-                <h1 class="search-anime-title">${anime.title}</h1>
-                <table style="margin-left: 7px; height: 100px">
-                <tr>
-                <td><i class="fa-solid fa-tv"></i>&nbsp;&nbsp;${type} (${episodes} Episodes)</td>
-                </tr>
-                <tr>
-                <td>
-                <div class="search-anime-details-main-div">
-                <i class="fa-regular fa-calendar"></i>&nbsp;&nbsp;
-                <div class="search-anime-details-div">
-                ${aniSeason.slice(1, -1)} ${aired}
-                </div>
-                </div>
-                </td>
-                </tr>
-                <tr>
-                <td><i class="fa-solid fa-star" style="color: gold"></i>&nbsp;&nbsp;${score}</td>
-                </tr>
-                </table>`
+                const genreList = [];
+                const genres = anime.genres;
 
-                animeCard.appendChild(image);
-                animeCard.appendChild(details);
-                container.appendChild(animeCard);
+                for (let i = 0; i < genres.length; i++) {
+                    genreList.push(" " + genres[i]);
+                }
 
-                animeCard.addEventListener("click", function () {
-                    localStorageFunc(anime);
+                localStorage.setItem("genre", genreList);
 
-                    const themesList = [];
-                    const themes = anime.themes;
+                let totalSum = 0;
+                for (let i = 0; i < anime.stats.scoreDistribution.length; i++) {
+                    totalSum += anime.stats.scoreDistribution[i].amount;
+                }
 
-                    for (let i = 0; i < themes.length; i++) {
-                        themesList.push(" " + themes[i].name);
-                    }
+                localStorage.setItem("scored by", totalSum);
 
-                    localStorage.setItem("themes", themesList);
+                const relationTypeList = [];
 
-                    const studiosList = [];
-                    const studios = anime.studios;
+                for (let i = 0; i < anime.relations.edges.length; i++) {
+                    const relationMap = {
+                        "ADAPTATION": "Adaptation",
+                        "PREQUEL": "Prequel",
+                        "SEQUEL": "Sequel",
+                        "SIDE_STORY": "Side Story",
+                        "PARENT": "Parent",
+                        "CHARACTER": "Character",
+                        "SUMMARY": "Summary",
+                        "ALTERNATIVE": "Alternative",
+                        "SPIN_OFF": "Spin Off",
+                        "OTHER": "Other",
+                        "SOURCE": "Source",
+                        "COMPILATION": "Compilation",
+                        "CONTAINS": "Contains",
+                    };
 
-                    for (let i = 0; i < studios.length; i++) {
-                        studiosList.push(" " + studios[i].name);
-                    }
+                    if (anime.relations.edges[i].relationType === "ADAPTATION") {
+                        continue;
+                      }
 
-                    localStorage.setItem("studios", studiosList);
+                    anime.relations.edges[i].relationType = relationMap[anime.relations.edges[i].relationType] || anime.relations.edges[i].relationType;
+                    relationTypeList.push(" " + JSON.stringify(anime.relations.edges[i].relationType));
+                }
 
-                    const producersList = [];
-                    const producers = anime.producers;
+                localStorage.setItem("relation types", relationTypeList);
 
-                    for (let i = 0; i < producers.length; i++) {
-                        producersList.push(" " + producers[i].name);
-                    }
+                const relationTitleList = [];
 
-                    localStorage.setItem("producers", producersList);
+                for (let i = 0; i < anime.relations.edges.length; i++) {
+                    relationTitleList.push(" " + JSON.stringify(anime.relations.edges[i].node.title.romaji));
+                }
 
-                    const genreList = [];
-                    const genres = anime.genres;
+                localStorage.setItem("relation titles", relationTitleList);
 
-                    for (let i = 0; i < genres.length; i++) {
-                        genreList.push(" " + genres[i].name);
-                    }
+                const relationIdList = [];
 
-                    localStorage.setItem("genre", genreList);
-                    window.location.href = "anime_about.html";
-                });
-            }
+                for (let i = 0; i < anime.relations.edges.length; i++) {
+                    relationIdList.push(" " + anime.relations.edges[i].id);
+                }
 
-            inputBox.value = "";
-        });
-    Event.stopPropagation();
+                localStorage.setItem("relation ids", relationIdList);
+
+                for (let i = 0; i < anime.relations.edges.length; i++) {
+                    relationTitleList.push(" " + JSON.stringify(anime.relations.edges[i].node.title.romaji));
+                }
+
+                window.location.href = "anime_about.html";
+            });
+        }
+    }
+
+    function handleError(error) {
+        alert('Error, check console');
+        console.error(error);
+    }
 });
 
 //-----------------------------------------------Fetching airing now anime data and displaying it-------------------------------------------------
 
 const airingNowDiv = document.getElementById("airing-now-container");
 
-fetch(`https://api.jikan.moe/v4/top/anime?filter=airing`)
-    .then(response => response.json())
-    .then(data => {
-        console.log(data, "Currently airing anime");
-        for (const anime of data.data) {
-            const animeCard = document.createElement("div");
-            animeCard.classList.add("anime-cards");
+function fetchAiringNowData() {
+    var query = `
+query ($page: Int, $perPage: Int, $season: MediaSeason) {
+    Page (page: $page, perPage: $perPage) {
+      pageInfo {
+        total
+        currentPage
+        lastPage
+        hasNextPage
+        perPage
+      }
+      media(season: $season, type: ANIME, status: RELEASING, sort: POPULARITY_DESC, isAdult: false) {
+        id
+        title {
+          romaji
+          english
+          native
+        }
+        startDate {
+          year
+          month
+          day
+        }
+        endDate {
+          year
+          month
+          day
+        }
+        coverImage {
+          large
+          extraLarge
+        }
+        bannerImage
+        episodes
+        format
+        duration
+        stats {
+            scoreDistribution {
+                amount
+            }
+        }
+        popularity
+        genres
+        favourites
+        source
+        studios {
+            nodes {
+                id
+                name
+            }
+        }
+        status
+        description
+        relations {
+        edges {
+            id
+            relationType
+                node {
+                    title {
+                        romaji
+                        english
+                        native
+                    }
+                }         
+            }
+        }
+        season
+        averageScore
+        nextAiringEpisode {
+          airingAt
+          timeUntilAiring
+          episode
+        }
+      }
+    }
+  }`;
 
-            const image = document.createElement("img");
-            image.classList.add("image");
-            image.src = anime.images.jpg.large_image_url;
+  function getSeason() {
+    const month = new Date().getMonth();
+    
+    if (month >= 3 && month <= 5) {
+        return "SPRING";
+    } 
+    else if (month >= 6 && month <= 8) {
+        return "SUMMER";
+    } 
+    else if (month >= 9 && month <= 11) {
+        return "FALL";
+    } 
+    else {
+        return "WINTER";
+    }
+  }
 
-            const broadcastString = nullfunc(anime.broadcast.string);
+    var variables = {
+        page: 1,
+        perPage: 10,
+        season: getSeason,
+        seasonYear: 2024
+    }
 
-            const details = document.createElement("div");
-            details.classList.add("search-anime-details");
-            details.innerHTML = `
-                <p class="anime-title">${anime.title}</p>
-                <table class="details-table">
+    var url = 'https://graphql.anilist.co',
+        options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify({
+                query: query,
+                variables: variables
+            })
+        };
+
+    fetch(url, options).then(handleResponse)
+        .then(handleAiringNowData)
+        .catch(handleError);
+}
+
+function handleResponse(response) {
+    return response.json().then(function (json) {
+        return response.ok ? json : Promise.reject(json);
+    });
+}
+
+function handleAiringNowData(data) {
+    console.log(data, "Currently airing anime");
+    for (const anime of data.data.Page.media) {
+        const animeCard = document.createElement("div");
+        animeCard.classList.add("airing-now-anime-cards");
+
+        const image = document.createElement("img");
+        image.classList.add("airing-now-image");
+        image.src = anime.coverImage.extraLarge;
+
+        const averageScore = nullfunc(anime.averageScore);
+
+        const airingDate = new Date(anime.nextAiringEpisode.airingAt * 1000);
+
+        const details = document.createElement("div");
+        details.classList.add("airing-now-anime-details");
+        details.innerHTML = `
+                <p class="anime-title">${anime.title.romaji}</p>
+                <table class="airing-now-details-table">
                 <tr>
-                <td>Score:</td>
-                <td><i class="fa-solid fa-star" style="color: gold"></i>&nbsp${anime.score}</td>
+                    <td>Score:</td>
+                    <td><i class="fa-solid fa-star" style="color: gold"></i>&nbsp;${averageScore}%</td>
                 </tr>
                 <tr>
-                <td>Broadcast:</td>
-                <td>
-                <div class="broadcast-div">
-                <div class="broadcast-image">
-                <i class="fa-solid fa-tower-broadcast" style="color: limegreen"></i>
-                </div>&nbsp
-                <div class="broadcast-value-div">
-                ${broadcastString}
-                </div>
-                </div>
+                    <td>Broadcast:</td>
+                    <td>
+                        <div class="broadcast-div">
+                        <div class="broadcast-image">
+                            <i class="fa-solid fa-tower-broadcast" style="color: limegreen"></i>
+                        </div>&nbsp;
+                        <div class="broadcast-value-div">
+                            ${airingDate}                
+                        </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Next Episode:</td>
+                    <td><i class="fa-solid fa-tv"></i>&nbsp;${anime.nextAiringEpisode.episode}</td>
                 </td>
-                </tr>
                 </table>`;
 
-            animeCard.appendChild(image);
-            animeCard.appendChild(details);
-            airingNowDiv.appendChild(animeCard);
+        animeCard.appendChild(image);
+        animeCard.appendChild(details);
+        airingNowDiv.appendChild(animeCard);
 
-            animeCard.addEventListener("click", function () {
-                localStorageFunc(anime);
-                 
-                const themesList = [];
-                const themes = anime.themes;
+        animeCard.addEventListener("click", function () {
+            localStorageFunc(anime);
 
-                for (let i = 0; i < themes.length; i++) {
-                    themesList.push(" " + themes[i].name);
-                }
+            const studiosList = [];
+            const nodes = anime.studios.nodes;
 
-                localStorage.setItem("themes", themesList);
+            for (let i = 0; i < nodes.length; i++) {
+                studiosList.push(" " + nodes[i].name);
+            }
 
-                const studiosList = [];
-                const studios = anime.studios;
+            localStorage.setItem("studios", studiosList);
 
-                for (let i = 0; i < studios.length; i++) {
-                    studiosList.push(" " + studios[i].name);
-                }
+            const genreList = [];
+            const genres = anime.genres;
 
-                localStorage.setItem("studios", studiosList);
+            for (let i = 0; i < genres.length; i++) {
+                genreList.push(" " + genres[i]);
+            }
 
-                const producersList = [];
-                const producers = anime.producers;
+            localStorage.setItem("genre", genreList);
 
-                for (let i = 0; i < producers.length; i++) {
-                    producersList.push(" " + producers[i].name);
-                }
+            let totalSum = 0;
+            for (let i = 0; i < anime.stats.scoreDistribution.length; i++) {
+                totalSum += anime.stats.scoreDistribution[i].amount;
+            }
 
-                localStorage.setItem("producers", producersList);
+            localStorage.setItem("scored by", totalSum);
 
-                const genreList = [];
-                const genres = anime.genres;
+            const relationTypeList = [];
 
-                for (let i = 0; i < genres.length; i++) {
-                    genreList.push(" " + genres[i].name);
-                }
+            for (let i = 0; i < anime.relations.edges.length; i++) {
+                const relationMap = {
+                    "ADAPTATION": "Adaptation",
+                    "PREQUEL": "Prequel",
+                    "SEQUEL": "Sequel",
+                    "SIDE_STORY": "Side Story",
+                    "PARENT": "Parent",
+                    "CHARACTER": "Character",
+                    "SUMMARY": "Summary",
+                    "ALTERNATIVE": "Alternative",
+                    "SPIN_OFF": "Spin Off",
+                    "OTHER": "Other",
+                    "SOURCE": "Source",
+                    "COMPILATION": "Compilation",
+                    "CONTAINS": "Contains",
+                };
 
-                localStorage.setItem("genre", genreList);
-                window.location.href = "anime_about.html";
-            })
-        }
-    })
+                if (anime.relations.edges[i].relationType === "ADAPTATION") {
+                    continue;
+                  }
 
-//-----------------------------------------------Fetching top anime data and displaying it-------------------------------------------------
+                anime.relations.edges[i].relationType = relationMap[anime.relations.edges[i].relationType] || anime.relations.edges[i].relationType;
+                relationTypeList.push(" " + JSON.stringify(anime.relations.edges[i].relationType));
+            }
 
-const topAnimeDiv = document.getElementById("top-anime-container");
-const nextButton = document.getElementById("next-top-anime");
-const previousButton = document.getElementById("previous-top-anime");
+            localStorage.setItem("relation types", relationTypeList);
 
-nextButton.addEventListener("click", function () {
-    topAnimeDiv.scrollLeft += 400;
-});
+            const relationTitleList = [];
 
-previousButton.addEventListener("click", function () {
-    topAnimeDiv.scrollLeft -= 400;
-});
+            for (let i = 0; i < anime.relations.edges.length; i++) {
+                relationTitleList.push(" " + JSON.stringify(anime.relations.edges[i].node.title.romaji));
+            }
 
-fetch(`https://api.jikan.moe/v4/top/anime`)
-    .then(response => response.json())
-    .then(data => {
-        console.log(data, "Top anime data");
-        for (const anime of data.data) {
-            const animeCard = document.createElement("div");
-            animeCard.classList.add("anime-cards");
+            localStorage.setItem("relation titles", relationTitleList);
 
-            const image = document.createElement("img");
-            image.classList.add("image");
-            image.src = anime.images.jpg.large_image_url;
+            const relationIdList = [];
 
-            const details = document.createElement("div");
-            details.classList.add("top-anime-details");
-            details.innerHTML = `
-                <p class="anime-title">${anime.title}</p>
-                <table class="details-table">
-                <tr>
-                <td style="font-size: 20px; text-align: center"><i class="fa-solid fa-star" style="color: gold"></i>&nbsp${anime.score}</td>
-                </tr>
-                </table>`
+            for (let i = 0; i < anime.relations.edges.length; i++) {
+                relationIdList.push(" " + anime.relations.edges[i].id);
+            }
 
-            animeCard.appendChild(image);
-            animeCard.appendChild(details);
-            topAnimeDiv.appendChild(animeCard);
+            localStorage.setItem("relation ids", relationIdList);
 
-            animeCard.addEventListener("click", function () {
-                localStorageFunc(anime);
+            window.location.href = "anime_about.html";
+        });
+    }
+}
 
-                const themesList = [];
-                const themes = anime.themes;
+function handleError(error) {
+    alert('Error, check console');
+    console.error(error);
+}
 
-                for (let i = 0; i < themes.length; i++) {
-                    themesList.push(" " + themes[i].name);
-                }
+fetchAiringNowData();
 
-                localStorage.setItem("themes", themesList);
-
-                const studiosList = [];
-                const studios = anime.studios;
-
-                for (let i = 0; i < studios.length; i++) {
-                    studiosList.push(" " + studios[i].name);
-                }
-
-                localStorage.setItem("studios", studiosList);
-
-                const producersList = [];
-                const producers = anime.producers;
-
-                for (let i = 0; i < producers.length; i++) {
-                    producersList.push(" " + producers[i].name);
-                }
-
-                localStorage.setItem("producers", producersList);
-
-                const genreList = [];
-                const genres = anime.genres;
-
-                for (let i = 0; i < genres.length; i++) {
-                    genreList.push(" " + genres[i].name);
-                }
-
-                localStorage.setItem("genre", genreList);
-                window.location.href = "anime_about.html";
-            })
-        }
-    })
 
 //-----------------------------------------------Fetching popular anime data and displaying it-------------------------------------------------
 
@@ -358,74 +612,418 @@ previousPopButton.addEventListener("click", function () {
     popAnimeDiv.scrollLeft -= 400;
 });
 
-fetch(`https://api.jikan.moe/v4/top/anime?filter=bypopularity`)
-    .then(response => response.json())
-    .then(data => {
-        console.log(data, "Popular anime data");
-        for (const anime of data.data) {
-            const animeCard = document.createElement("div");
-            animeCard.classList.add("anime-cards");
-
-            const image = document.createElement("img");
-            image.classList.add("image");
-            image.src = anime.images.jpg.large_image_url;
-
-            const details = document.createElement("div");
-            details.classList.add("pop-anime-details");
-            details.innerHTML = `
-                    <p class="anime-title">${anime.title}</p>
-                    <table class="details-table">
-                    <tr>
-                    <td style="font-size: 20px; text-align: center"><i class="fa-solid fa-star" style="color: gold"></i>&nbsp${anime.score}</td>
-                    </tr>
-                    </table>`
-
-            animeCard.appendChild(image);
-            animeCard.appendChild(details);
-            popAnimeDiv.appendChild(animeCard);
-
-            animeCard.addEventListener("click", function () {
-                localStorageFunc(anime);
-
-                const themesList = [];
-                const themes = anime.themes;
-
-                for (let i = 0; i < themes.length; i++) {
-                    themesList.push(" " + themes[i].name);
+function fetchPopularAnimeData() {
+    var query = `
+    query {
+        Page {
+            media(sort: POPULARITY_DESC, type: ANIME) {
+                id
+                title {
+                    romaji
+                    english
+                    native
                 }
-
-                localStorage.setItem("themes", themesList);
-
-                const studiosList = [];
-                const studios = anime.studios;
-
-                for (let i = 0; i < studios.length; i++) {
-                    studiosList.push(" " + studios[i].name);
+                description
+                relations {
+                    edges {
+                        id
+                        relationType
+                            node {
+                                title {
+                                    romaji
+                                    english
+                                    native
+                                }
+                            }         
+                        }
+                    }
+                status
+                season
+                studios {
+                    nodes {
+                        id
+                        name
+                    }
                 }
-
-                localStorage.setItem("studios", studiosList);
-
-                const producersList = [];
-                const producers = anime.producers;
-
-                for (let i = 0; i < producers.length; i++) {
-                    producersList.push(" " + producers[i].name);
+                source
+                favourites
+                startDate {
+                    year
+                    month
+                    day
                 }
-
-                localStorage.setItem("producers", producersList);
-
-                const genreList = [];
-                const genres = anime.genres;
-
-                for (let i = 0; i < genres.length; i++) {
-                    genreList.push(" " + genres[i].name);
+                endDate {
+                    year
+                    month
+                    day
                 }
-
-                localStorage.setItem("genre", genreList);
-                window.location.href = "anime_about.html";
-            })
+                episodes
+                duration
+                stats {
+                    scoreDistribution {
+                        amount
+                    }
+                }
+                bannerImage
+                genres
+                format
+                averageScore
+                coverImage {
+                    large
+                    extraLarge
+                }
+                popularity
+            }
         }
-    })
+    }`;
+
+    var url = 'https://graphql.anilist.co',
+        options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify({
+                query: query
+            })
+        };
+
+    fetch(url, options).then(handleResponse)
+        .then(handlePopularAnimeData)
+        .catch(handleError);
+}
+
+function handleResponse(response) {
+    return response.json().then(function (json) {
+        return response.ok ? json : Promise.reject(json);
+    });
+}
+
+function handlePopularAnimeData(data) {
+    console.log(data, "Popular anime data");
+    for (const anime of data.data.Page.media) {
+        const animeCard = document.createElement("div");
+        animeCard.classList.add("anime-cards");
+
+        const image = document.createElement("img");
+        image.classList.add("image");
+        image.src = anime.coverImage.extraLarge;
+
+        const details = document.createElement("div");
+        details.classList.add("pop-anime-details");
+        details.innerHTML = `
+                        <p class="anime-title">${anime.title.romaji}</p>
+                        <table class="details-table">
+                        <tr>
+                        <td style="font-size: 20px; text-align: center"><i class="fa-solid fa-star" style="color: gold"></i>&nbsp;${anime.averageScore}%</td>
+                        </tr>
+                        </table>`
+
+        animeCard.appendChild(image);
+        animeCard.appendChild(details);
+        popAnimeDiv.appendChild(animeCard);
+
+        animeCard.addEventListener("click", function () {
+            localStorageFunc(anime);
+
+            const studiosList = [];
+            const nodes = anime.studios.nodes;
+
+            for (let i = 0; i < nodes.length; i++) {
+                studiosList.push(" " + nodes[i].name);
+            }
+
+            localStorage.setItem("studios", studiosList);
+
+            const genreList = [];
+            const genres = anime.genres;
+
+            for (let i = 0; i < genres.length; i++) {
+                genreList.push(" " + genres[i]);
+            }
+
+            localStorage.setItem("genre", genreList);
+
+            let totalSum = 0;
+            for (let i = 0; i < anime.stats.scoreDistribution.length; i++) {
+                totalSum += anime.stats.scoreDistribution[i].amount;
+            }
+
+            localStorage.setItem("scored by", totalSum);
+
+            const relationTypeList = [];
+
+            for (let i = 0; i < anime.relations.edges.length; i++) {
+                const relationMap = {
+                    "ADAPTATION": "Adaptation",
+                    "PREQUEL": "Prequel",
+                    "SEQUEL": "Sequel",
+                    "SIDE_STORY": "Side Story",
+                    "PARENT": "Parent",
+                    "CHARACTER": "Character",
+                    "SUMMARY": "Summary",
+                    "ALTERNATIVE": "Alternative",
+                    "SPIN_OFF": "Spin Off",
+                    "OTHER": "Other",
+                    "SOURCE": "Source",
+                    "COMPILATION": "Compilation",
+                    "CONTAINS": "Contains",
+                };
+
+                if (anime.relations.edges[i].relationType === "ADAPTATION") {
+                    continue;
+                  }
+
+                anime.relations.edges[i].relationType = relationMap[anime.relations.edges[i].relationType] || anime.relations.edges[i].relationType;
+                relationTypeList.push(" " + JSON.stringify(anime.relations.edges[i].relationType));
+            }
+
+            localStorage.setItem("relation types", relationTypeList);
+
+            const relationTitleList = [];
+
+            for (let i = 0; i < anime.relations.edges.length; i++) {
+                relationTitleList.push(" " + JSON.stringify(anime.relations.edges[i].node.title.romaji));
+            }
+
+            localStorage.setItem("relation titles", relationTitleList);
+
+            const relationIdList = [];
+
+            for (let i = 0; i < anime.relations.edges.length; i++) {
+                relationIdList.push(" " + anime.relations.edges[i].id);
+            }
+
+            localStorage.setItem("relation ids", relationIdList);
+
+            window.location.href = "anime_about.html";
+        });
+    }
+}
+
+function handleError(error) {
+    alert('Error, check console');
+    console.error(error);
+}
+
+fetchPopularAnimeData();
+
+//-----------------------------------------------Fetching top anime data and displaying it-------------------------------------------------
+
+const topAnimeDiv = document.getElementById("top-anime-container");
+const nextButton = document.getElementById("next-top-anime");
+const previousButton = document.getElementById("previous-top-anime");
+
+nextButton.addEventListener("click", function () {
+    topAnimeDiv.scrollLeft += 400;
+});
+
+previousButton.addEventListener("click", function () {
+    topAnimeDiv.scrollLeft -= 400;
+});
+
+function fetchTopAnimeData() {
+    var query = `
+    query {
+        Page {
+            media(sort: SCORE_DESC, type: ANIME) {
+                id
+                title {
+                    romaji
+                    english
+                    native
+                }
+                coverImage {
+                    large
+                    extraLarge
+                }
+                startDate {
+                    year
+                    month
+                    day
+                }
+                endDate {
+                    year
+                    month
+                    day
+                }
+                status
+                season
+                studios {
+                    nodes {
+                        id
+                        name
+                    }
+                }
+                source
+                favourites
+                popularity
+                relations {
+                    edges {
+                        id
+                        relationType
+                            node {
+                                title {
+                                    romaji
+                                    english
+                                    native
+                                }
+                            }         
+                        }
+                    }
+                episodes
+                duration
+                genres
+                stats {
+                    scoreDistribution {
+                        amount
+                    }
+                }
+                format
+                description
+                averageScore
+                bannerImage
+            }
+        }
+    }`;
+
+    var variables = {
+        page: 1,
+        perPage: 10,
+    }
+
+    var url = 'https://graphql.anilist.co',
+        options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify({
+                query: query,
+                variables: variables
+            })
+        };
+
+    fetch(url, options).then(handleResponse)
+        .then(handleTopAnimeData)
+        .catch(handleError);
+}
+
+function handleResponse(response) {
+    return response.json().then(function (json) {
+        return response.ok ? json : Promise.reject(json);
+    });
+}
+
+function handleTopAnimeData(data) {
+    console.log(data, "Top anime data");
+    for (const anime of data.data.Page.media) {
+        const animeCard = document.createElement("div");
+        animeCard.classList.add("anime-cards");
+
+        const image = document.createElement("img");
+        image.classList.add("image");
+        image.src = anime.coverImage.extraLarge;
+
+        const details = document.createElement("div");
+        details.classList.add("top-anime-details");
+        details.innerHTML = `
+                <p class="anime-title">${anime.title.romaji}</p>
+                <table class="details-table">
+                <tr>
+                <td style="font-size: 20px; text-align: center"><i class="fa-solid fa-star" style="color: gold"></i>&nbsp;${anime.averageScore}%</td>
+                </tr>
+                </table>`
+
+        animeCard.appendChild(image);
+        animeCard.appendChild(details);
+        topAnimeDiv.appendChild(animeCard);
+
+        animeCard.addEventListener("click", function () {
+            localStorageFunc(anime);
+
+            const studiosList = [];
+            const nodes = anime.studios.nodes;
+
+            for (let i = 0; i < nodes.length; i++) {
+                studiosList.push(" " + nodes[i].name);
+            }
+
+            localStorage.setItem("studios", studiosList);
+
+            const genreList = [];
+            const genres = anime.genres;
+
+            for (let i = 0; i < genres.length; i++) {
+                genreList.push(" " + genres[i]);
+            }
+
+            localStorage.setItem("genre", genreList);
+
+            let totalSum = 0;
+            for (let i = 0; i < anime.stats.scoreDistribution.length; i++) {
+                totalSum += anime.stats.scoreDistribution[i].amount;
+            }
+
+            localStorage.setItem("scored by", totalSum);
+            const relationTypeList = [];
+
+            for (let i = 0; i < anime.relations.edges.length; i++) {
+                const relationMap = {
+                    "ADAPTATION": "Adaptation",
+                    "PREQUEL": "Prequel",
+                    "SEQUEL": "Sequel",
+                    "SIDE_STORY": "Side Story",
+                    "PARENT": "Parent",
+                    "CHARACTER": "Character",
+                    "SUMMARY": "Summary",
+                    "ALTERNATIVE": "Alternative",
+                    "SPIN_OFF": "Spin Off",
+                    "OTHER": "Other",
+                    "SOURCE": "Source",
+                    "COMPILATION": "Compilation",
+                    "CONTAINS": "Contains",
+                };
+
+                if (anime.relations.edges[i].relationType === "ADAPTATION") {
+                    continue;
+                  }
+
+                anime.relations.edges[i].relationType = relationMap[anime.relations.edges[i].relationType] || anime.relations.edges[i].relationType;
+                relationTypeList.push(" " + JSON.stringify(anime.relations.edges[i].relationType));
+            }
+
+            localStorage.setItem("relation types", relationTypeList);
+
+            const relationTitleList = [];
+
+            for (let i = 0; i < anime.relations.edges.length; i++) {
+                relationTitleList.push(" " + JSON.stringify(anime.relations.edges[i].node.title.romaji));
+            }
+
+            localStorage.setItem("relation titles", relationTitleList);
+
+            const relationIdList = [];
+
+            for (let i = 0; i < anime.relations.edges.length; i++) {
+                relationIdList.push(" " + anime.relations.edges[i].id);
+            }
+
+            localStorage.setItem("relation ids", relationIdList);
+
+            window.location.href = "anime_about.html";
+        });
+    }
+}
+
+function handleError(error) {
+    alert('Error, check console');
+    console.error(error);
+}
+
+fetchTopAnimeData();
 
 document.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
