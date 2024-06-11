@@ -68,6 +68,80 @@ function localStorageFunc(str) {
     localStorage.setItem("title", str.title.romaji);
     localStorage.setItem("title native", str.title.native);
     localStorage.setItem("title english", str.title.english);
+
+    const studiosList = [];
+    const nodes = str.studios.nodes;
+
+    for (let i = 0; i < nodes.length; i++) {
+        studiosList.push(" " + nodes[i].name);
+    }
+
+    localStorage.setItem("studios", studiosList);
+
+    const genreList = [];
+    const genres = str.genres;
+
+    for (let i = 0; i < genres.length; i++) {
+        genreList.push(" " + genres[i]);
+    }
+
+    localStorage.setItem("genre", genreList);
+
+    let totalSum = 0;
+    for (let i = 0; i < str.stats.scoreDistribution.length; i++) {
+        totalSum += str.stats.scoreDistribution[i].amount;
+    }
+
+    localStorage.setItem("scored by", totalSum);
+    const relationTypeList = [];
+
+    for (let i = 0; i < str.relations.edges.length; i++) {
+        const relationMap = {
+            "ADAPTATION": "Adaptation",
+            "PREQUEL": "Prequel",
+            "SEQUEL": "Sequel",
+            "SIDE_STORY": "Side Story",
+            "PARENT": "Parent",
+            "CHARACTER": "Character",
+            "SUMMARY": "Summary",
+            "ALTERNATIVE": "Alternative",
+            "SPIN_OFF": "Spin Off",
+            "OTHER": "Other",
+            "SOURCE": "Source",
+            "COMPILATION": "Compilation",
+            "CONTAINS": "Contains",
+        };
+
+        str.relations.edges[i].relationType = relationMap[str.relations.edges[i].relationType] || str.relations.edges[i].relationType;
+        relationTypeList.push(" " + JSON.stringify(str.relations.edges[i].relationType));
+    }
+
+    localStorage.setItem("relation types", relationTypeList);
+
+    const relationTitleList = [];
+
+    for (let i = 0; i < str.relations.edges.length; i++) {
+        relationTitleList.push(" " + JSON.stringify(str.relations.edges[i].node.title.romaji));
+    }
+
+    localStorage.setItem("relation titles", relationTitleList);
+
+    const relationIdList = [];
+
+    for (let i = 0; i < str.relations.edges.length; i++) {
+        relationIdList.push(" " + str.relations.edges[i].id);
+    }
+
+    localStorage.setItem("relation ids", relationIdList);
+}
+
+function nullFuncSearch(str) {
+    if (str === null) {
+        return "N/A";
+    }
+    else {
+        return str;
+    }
 }
 
 
@@ -194,11 +268,11 @@ query ($title: String) {
             image.classList.add("search-anime-image");
             image.src = anime.coverImage.extraLarge;
 
-            const format = nullfunc(anime.format);
-            const episodes = nullfunc(anime.episodes);
-            const season = nullfunc(anime.season);
-            const endDate = nullfunc(anime.endDate.year);
-            const averageScore = nullfunc(anime.averageScore);
+            const format = nullFuncSearch(anime.format);
+            const episodes = nullFuncSearch(anime.episodes);
+            const season = nullFuncSearch(anime.season);
+            const endDate = nullFuncSearch(anime.endDate.year);
+            const averageScore = nullFuncSearch(anime.averageScore);
 
             const details = document.createElement("div");
             details.classList.add("search-anime-details");
@@ -229,77 +303,6 @@ query ($title: String) {
 
             animeCard.addEventListener("click", function () {
                 localStorageFunc(anime);
-
-                const studiosList = [];
-                const nodes = anime.studios.nodes;
-
-                for (let i = 0; i < nodes.length; i++) {
-                    studiosList.push(" " + nodes[i].name);
-                }
-
-                localStorage.setItem("studios", studiosList);
-
-                const genreList = [];
-                const genres = anime.genres;
-
-                for (let i = 0; i < genres.length; i++) {
-                    genreList.push(" " + genres[i]);
-                }
-
-                localStorage.setItem("genre", genreList);
-
-                let totalSum = 0;
-                for (let i = 0; i < anime.stats.scoreDistribution.length; i++) {
-                    totalSum += anime.stats.scoreDistribution[i].amount;
-                }
-
-                localStorage.setItem("scored by", totalSum);
-
-                const relationTypeList = [];
-
-                for (let i = 0; i < anime.relations.edges.length; i++) {
-                    const relationMap = {
-                        "ADAPTATION": "Adaptation",
-                        "PREQUEL": "Prequel",
-                        "SEQUEL": "Sequel",
-                        "SIDE_STORY": "Side Story",
-                        "PARENT": "Parent",
-                        "CHARACTER": "Character",
-                        "SUMMARY": "Summary",
-                        "ALTERNATIVE": "Alternative",
-                        "SPIN_OFF": "Spin Off",
-                        "OTHER": "Other",
-                        "SOURCE": "Source",
-                        "COMPILATION": "Compilation",
-                        "CONTAINS": "Contains",
-                    };
-
-                    if (anime.relations.edges[i].relationType === "ADAPTATION") {
-                        continue;
-                      }
-
-                    anime.relations.edges[i].relationType = relationMap[anime.relations.edges[i].relationType] || anime.relations.edges[i].relationType;
-                    relationTypeList.push(" " + JSON.stringify(anime.relations.edges[i].relationType));
-                }
-
-                localStorage.setItem("relation types", relationTypeList);
-
-                const relationTitleList = [];
-
-                for (let i = 0; i < anime.relations.edges.length; i++) {
-                    relationTitleList.push(" " + JSON.stringify(anime.relations.edges[i].node.title.romaji));
-                }
-
-                localStorage.setItem("relation titles", relationTitleList);
-
-                const relationIdList = [];
-
-                for (let i = 0; i < anime.relations.edges.length; i++) {
-                    relationIdList.push(" " + anime.relations.edges[i].id);
-                }
-
-                localStorage.setItem("relation ids", relationIdList);
-
                 window.location.href = "anime_about.html";
             });
         }
@@ -577,78 +580,7 @@ for (let i = 0; i < titleElements.length; i++) {
 
             function handleData(data) {
                 console.log(data);
-                localStorageFunc(data.data.Media);
-                const anime = data.data.Media;
-                const studiosList = [];
-                const nodes = anime.studios.nodes;
-
-                for (let i = 0; i < nodes.length; i++) {
-                    studiosList.push(" " + nodes[i].name);
-                }
-
-                localStorage.setItem("studios", studiosList);
-
-                const genreList = [];
-                const genres = anime.genres;
-
-                for (let i = 0; i < genres.length; i++) {
-                    genreList.push(" " + genres[i]);
-                }
-
-                localStorage.setItem("genre", genreList);
-
-                let totalSum = 0;
-                for (let i = 0; i < anime.stats.scoreDistribution.length; i++) {
-                    totalSum += anime.stats.scoreDistribution[i].amount;
-                }
-
-                localStorage.setItem("scored by", totalSum);
-
-                const relationTypeList = [];
-
-                for (let i = 0; i < anime.relations.edges.length; i++) {
-                    const relationMap = {
-                        "ADAPTATION": "Adaptation",
-                        "PREQUEL": "Prequel",
-                        "SEQUEL": "Sequel",
-                        "SIDE_STORY": "Side Story",
-                        "PARENT": "Parent",
-                        "CHARACTER": "Character",
-                        "SUMMARY": "Summary",
-                        "ALTERNATIVE": "Alternative",
-                        "SPIN_OFF": "Spin Off",
-                        "OTHER": "Other",
-                        "SOURCE": "Source",
-                        "COMPILATION": "Compilation",
-                        "CONTAINS": "Contains",
-                    };
-
-                    if (anime.relations.edges[i].relationType === "ADAPTATION") {
-                        continue;
-                      }
-
-                    anime.relations.edges[i].relationType = relationMap[anime.relations.edges[i].relationType] || anime.relations.edges[i].relationType;
-                    relationTypeList.push(" " + JSON.stringify(anime.relations.edges[i].relationType));
-                }
-
-                localStorage.setItem("relation types", relationTypeList);
-
-                const relationTitleList = [];
-
-                for (let i = 0; i < anime.relations.edges.length; i++) {
-                    relationTitleList.push(" " + JSON.stringify(anime.relations.edges[i].node.title.romaji));
-                }
-
-                localStorage.setItem("relation titles", relationTitleList);
-
-                const relationIdList = [];
-
-                for (let i = 0; i < anime.relations.edges.length; i++) {
-                    relationIdList.push(" " + anime.relations.edges[i].id);
-                }
-
-                localStorage.setItem("relation ids", relationIdList);
-                
+                localStorageFunc(data.data.Media);                
                 window.location.href = "anime_about.html";
             }
 
