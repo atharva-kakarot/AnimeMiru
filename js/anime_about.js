@@ -472,7 +472,7 @@ for (let i = 0; i < dataLength; i++) {
     <table id="relations-table">
       <tr>
         <td>${JSON.parse(relationTypes[i])}:</td>
-        <td id="relation-title-${i}">${JSON.parse(relationTitles[i])}</td>
+        <td id="relation-title-${i}">${relationTitles[i].slice(2,-1)}</td>
       </tr>
     </table>`;
 }
