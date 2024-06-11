@@ -426,7 +426,7 @@ query ($page: Int, $perPage: Int, $season: MediaSeason) {
     var variables = {
         page: 1,
         perPage: 10,
-        season: getSeason,
+        season: getSeason(),
         seasonYear: 2024
     }
 
