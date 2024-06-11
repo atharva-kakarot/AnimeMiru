@@ -320,7 +320,16 @@ const bannerImageDiv = document.getElementById("banner-image-div");
 const bannerImage = document.createElement("img");
 bannerImage.classList.add("banner-image");
 bannerImage.src = localStorage.getItem("banner image");
-bannerImageDiv.appendChild(bannerImage);
+
+if (bannerImage.src === "http://127.0.0.1:5500/null") {
+    bannerImageDiv.style.display = "none";
+}
+else {
+    bannerImageDiv.appendChild(bannerImage);
+}
+
+
+
 
 const animeImage = document.getElementById("anime-image");
 animeImage.src = localStorage.getItem("image");
