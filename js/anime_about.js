@@ -147,15 +147,6 @@ function localStorageFunc(str) {
     localStorage.setItem("format", str.format);
 }
 
-function nullfunc(str) {
-    if (str === null) {
-        return "N/A";
-    }
-    else {
-        return str;
-    }
-}
-
 function animeContainer(str) {
     const animeCard = document.createElement("div");
     animeCard.classList.add("search-anime-cards");
@@ -164,7 +155,7 @@ function animeContainer(str) {
     image.classList.add("search-anime-image");
     image.src = str.coverImage.extraLarge;
 
-    const format = nullfunc(str.format);
+    const format = nullFuncSearch(str.format);
 
     const formatMap = {
         "TV_SHORT": "TV Short",
@@ -178,8 +169,8 @@ function animeContainer(str) {
 
     const updatedFormatString = formatMap[format] || format;
 
-    const episodes = nullfunc(str.episodes);
-    const season = nullfunc(str.season);
+    const episodes = nullFuncSearch(str.episodes);
+    const season = nullFuncSearch(str.season);
 
     const seasonMap = {
         "WINTER": "Winter",
@@ -190,8 +181,8 @@ function animeContainer(str) {
 
     const updatedSeasonString = seasonMap[season] || season;
 
-    const endDate = nullfunc(str.endDate.year);
-    const averageScore = nullfunc(str.averageScore);
+    const endDate = nullFuncSearch(str.endDate.year);
+    const averageScore = nullFuncSearch(str.averageScore);
 
     const details = document.createElement("div");
     details.classList.add("search-anime-details");
@@ -377,6 +368,7 @@ bannerImage.classList.add("banner-image");
 bannerImage.src = localStorage.getItem("banner image");
 
 if (bannerImage.src === "http://127.0.0.1:5500/null") {
+    localStorage.removeItem("banner image");
     bannerImageDiv.style.display = "none";
 }
 else {
