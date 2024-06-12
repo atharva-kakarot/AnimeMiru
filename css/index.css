@@ -190,7 +190,6 @@ body {
 }
 
 .anime-cards {
-    /* border: 1px solid white; */
     margin: 5px;
     height: fit-content;
     display: flex;
@@ -201,7 +200,6 @@ body {
 }
 
 .airing-now-anime-cards {
-    /* border: 1px solid white; */
     margin: 5px;
     height: fit-content;
     display: flex;
@@ -227,7 +225,6 @@ body {
     margin-top: 16px;
     border-radius: 10px;
     object-fit: cover;
-    /* border: 1px solid white; */
 }
 
 .airing-now-anime-details {
@@ -235,7 +232,6 @@ body {
     width: fit-content;
     margin: 10px;
     text-align: center;
-    /* border: 1px solid white; */
     height: 242px;
 }
 
@@ -243,7 +239,6 @@ body {
     width: 250px;
     margin: 10px 10px;
     font-family: 'Quicksand';
-    /* border: 1px solid white; */
 }
 
 .airing-now-details-table tr {
