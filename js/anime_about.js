@@ -473,15 +473,23 @@ const relationTitles = localStorage.getItem("relation titles").split(",");
 const relationTypes = localStorage.getItem("relation types").split(",");
 const titleIds = localStorage.getItem("relation ids").split(",");
 
-const dataLength = Math.min(relationTypes.length, relationTitles.length, titleIds.length);
-for (let i = 0; i < dataLength; i++) {
-    relationsDiv.innerHTML += `
+if (localStorage.getItem("relation types") === "") {
+    localStorage.removeItem(localStorage.getItem("relation types"));
+    localStorage.removeItem(localStorage.getItem("relation titles"));
+    localStorage.removeItem(localStorage.getItem("relation ids"));
+    relationsDiv.style.display = "none";
+}
+else {
+    const dataLength = Math.min(relationTypes.length, relationTitles.length, titleIds.length);
+    for (let i = 0; i < dataLength; i++) {
+        relationsDiv.innerHTML += `
     <table id="relations-table">
       <tr>
         <td>${JSON.parse(relationTypes[i])}:</td>
-        <td id="relation-title-${i}">${relationTitles[i].slice(2,-1)}</td>
+        <td id="relation-title-${i}">${relationTitles[i].slice(2, -1)}</td>
       </tr>
     </table>`;
+    }
 }
 
 const titleElements = document.querySelectorAll('#relations-table td:nth-child(2)');
@@ -587,7 +595,7 @@ for (let i = 0; i < titleElements.length; i++) {
 
             function handleData(data) {
                 console.log(data);
-                localStorageFunc(data.data.Media);                
+                localStorageFunc(data.data.Media);
                 window.location.href = "anime_about.html";
             }
 
