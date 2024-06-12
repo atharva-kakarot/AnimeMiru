@@ -14,7 +14,6 @@ function localStorageFunc(str) {
     localStorage.setItem("end year", str.endDate.year);
     localStorage.setItem("end month", str.endDate.month);
     localStorage.setItem("end day", str.endDate.day);
-    localStorage.setItem("format", str.format);
     localStorage.setItem("duration", str.duration);
     localStorage.setItem("episodes", str.episodes);
     localStorage.setItem("popularity", str.popularity);
@@ -134,6 +133,19 @@ function localStorageFunc(str) {
     }
 
     localStorage.setItem("relation ids", relationIdList);
+
+    const format = {
+        "TV_SHORT": "TV Short",
+        "MOVIE": "Movie",
+        "SPECIAL": "Special",
+        "MUSIC": "Music",
+        "MANGA": "Manga",
+        "NOVEL": "Novel",
+        "ONE_SHOT": "One-shot"
+    }
+
+    str.format = format[str.format] || str.format;
+    localStorage.setItem("format", str.format);
 }
 
 function nullfunc(str) {
@@ -154,8 +166,31 @@ function animeContainer(str) {
     image.src = str.coverImage.extraLarge;
 
     const format = nullfunc(str.format);
+
+    const formatMap = {
+        "TV_SHORT": "TV Short",
+        "MOVIE": "Movie",
+        "SPECIAL": "Special",
+        "MUSIC": "Music",
+        "MANGA": "Manga",
+        "NOVEL": "Novel",
+        "ONE_SHOT": "One-shot"
+    }
+
+    const updatedFormatString = formatMap[format] || format;
+
     const episodes = nullfunc(str.episodes);
     const season = nullfunc(str.season);
+
+    const seasonMap = {
+        "WINTER": "Winter",
+        "SPRING": "Spring",
+        "SUMMER": "Summer",
+        "FALL": "Fall",
+    };
+
+    const updatedSeasonString = seasonMap[season] || season;
+
     const endDate = nullfunc(str.endDate.year);
     const averageScore = nullfunc(str.averageScore);
 
@@ -165,14 +200,14 @@ function animeContainer(str) {
     <h1 class="search-anime-title">${str.title.romaji}</h1>
     <table style="margin-left: 7px; height: 100px">
     <tr>
-    <td><i class="fa-solid fa-tv"></i>&nbsp;&nbsp;${format} (${episodes} Episodes)</td>
+    <td><i class="fa-solid fa-tv"></i>&nbsp;&nbsp;${updatedFormatString} (${episodes} Episodes)</td>
     </tr>
     <tr>
     <td>
     <div class="search-anime-details-main-div">
     <i class="fa-regular fa-calendar"></i>&nbsp;&nbsp;
     <div class="search-anime-details-div">
-    ${season} ${endDate}
+    ${updatedSeasonString} ${endDate}
     </div>
     </div>
     </td>
