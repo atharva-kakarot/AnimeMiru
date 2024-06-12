@@ -144,6 +144,53 @@ function nullFuncSearch(str) {
     }
 }
 
+function animeContainer(str) {
+    const animeCard = document.createElement("div");
+    animeCard.classList.add("search-anime-cards");
+
+    const image = document.createElement("img");
+    image.classList.add("search-anime-image");
+    image.src = str.coverImage.extraLarge;
+
+    const format = nullfunc(str.format);
+    const episodes = nullfunc(str.episodes);
+    const season = nullfunc(str.season);
+    const endDate = nullfunc(str.endDate.year);
+    const averageScore = nullfunc(str.averageScore);
+
+    const details = document.createElement("div");
+    details.classList.add("search-anime-details");
+    details.innerHTML = `
+    <h1 class="search-anime-title">${str.title.romaji}</h1>
+    <table style="margin-left: 7px; height: 100px">
+    <tr>
+    <td><i class="fa-solid fa-tv"></i>&nbsp;&nbsp;${format} (${episodes} Episodes)</td>
+    </tr>
+    <tr>
+    <td>
+    <div class="search-anime-details-main-div">
+    <i class="fa-regular fa-calendar"></i>&nbsp;&nbsp;
+    <div class="search-anime-details-div">
+    ${season} ${endDate}
+    </div>
+    </div>
+    </td>
+    </tr>
+    <tr>
+    <td><i class="fa-solid fa-star" style="color: gold"></i>&nbsp;&nbsp;${averageScore}%</td>
+    </tr>
+    </table>`
+
+    animeCard.appendChild(image);
+    animeCard.appendChild(details);
+    container.appendChild(animeCard);
+
+    animeCard.addEventListener("click", function () {
+        localStorageFunc(str);
+        window.location.href = "anime_about.html";
+    });
+}
+
 
 //-----------------------------------------------Adding event listeners to search button-------------------------------------------------
 
@@ -261,50 +308,14 @@ query ($title: String) {
     function handleData(data) {
         console.log(data, "Search anime");
         for (const anime of data.data.Page.media) {
-            const animeCard = document.createElement("div");
-            animeCard.classList.add("search-anime-cards");
-
-            const image = document.createElement("img");
-            image.classList.add("search-anime-image");
-            image.src = anime.coverImage.extraLarge;
-
-            const format = nullFuncSearch(anime.format);
-            const episodes = nullFuncSearch(anime.episodes);
-            const season = nullFuncSearch(anime.season);
-            const endDate = nullFuncSearch(anime.endDate.year);
-            const averageScore = nullFuncSearch(anime.averageScore);
-
-            const details = document.createElement("div");
-            details.classList.add("search-anime-details");
-            details.innerHTML = `
-                    <h1 class="search-anime-title">${anime.title.romaji}</h1>
-                    <table style="margin-left: 7px; height: 100px">
-                    <tr>
-                    <td><i class="fa-solid fa-tv"></i>&nbsp;&nbsp;${format} (${episodes} Episodes)</td>
-                    </tr>
-                    <tr>
-                    <td>
-                    <div class="search-anime-details-main-div">
-                    <i class="fa-regular fa-calendar"></i>&nbsp;&nbsp;
-                    <div class="search-anime-details-div">
-                    ${season} ${endDate}
-                    </div>
-                    </div>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td><i class="fa-solid fa-star" style="color: gold"></i>&nbsp;&nbsp;${averageScore}%</td>
-                    </tr>
-                    </table>`
-
-            animeCard.appendChild(image);
-            animeCard.appendChild(details);
-            container.appendChild(animeCard);
-
-            animeCard.addEventListener("click", function () {
-                localStorageFunc(anime);
-                window.location.href = "anime_about.html";
-            });
+            if (data.data.Page.media.length === 1) {
+                container.style.height = "241px";
+                animeContainer(anime);
+            }
+            else {
+                container.style.height = "486px";
+                animeContainer(anime);
+            }
         }
     }
 
