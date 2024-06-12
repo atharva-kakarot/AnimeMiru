@@ -189,6 +189,21 @@ body {
     background-color: rgb(40, 40, 40);
 }
 
+#relations-header {
+    font-size: 30px;
+    font-weight: 500;
+    margin-left: 0px;
+    text-align: center;
+}
+
+#synopsis-header {
+    font-size: 30px;
+    font-weight: 500;
+    margin-left: 0px;
+    text-align: center;
+    margin-bottom: 35px;
+}
+
 #relations-table tr {
     font-size: 20px;
     height: 40px;

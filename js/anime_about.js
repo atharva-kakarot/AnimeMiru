@@ -328,9 +328,6 @@ else {
     bannerImageDiv.appendChild(bannerImage);
 }
 
-
-
-
 const animeImage = document.getElementById("anime-image");
 animeImage.src = localStorage.getItem("image");
 
@@ -344,11 +341,12 @@ animeTitleJap.innerText = `${titleJapKey}`;
 
 const animeTitleEng = document.getElementById("anime-title-eng");
 const titleEngKey = localStorage.getItem("title english");
-animeTitleEng.innerText = `${titleEngKey}`;
+animeTitleEng.innerText = `${nullfunc(titleEngKey)}`;
 
 const synopsisDiv = document.getElementById("synopsis-div");
 const synopsis = nullfunc(localStorage.getItem("description"));
-synopsisDiv.innerHTML = `<p>${synopsis}</p>`
+synopsisDiv.innerHTML = `<h1 id="synopsis-header">Synopsis</h1>
+                         <p>${synopsis}</p>`;
 
 const genreDiv = document.getElementById("genre-div");
 const genreList = localStorage.getItem("genre");
