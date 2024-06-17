@@ -1057,7 +1057,7 @@ function animeAboutDiv() {
     else {
         const dataLength = Math.min(relationTypes.length, relationTitles.length, titleIds.length);
         relationsDiv.innerHTML = "";
-
+        relationsDiv.innerHTML =`<h1 id="relations-header">Related Anime</h1>`
         for (let i = 0; i < dataLength; i++) {
             relationsDiv.innerHTML += `
     <table id="relations-table">
