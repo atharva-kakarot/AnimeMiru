@@ -304,24 +304,7 @@ body {
     font-family: 'Quicksand';
     display: flex;
     flex-direction: column;
-}
-
-#banner-image-div {
-    position: absolute;
     background-color: rgb(40, 40, 40);
-    left: 0;
-    right: 0;
-    margin: auto;
-    margin-top: 69px;
-    font-family: 'Quicksand';
-    display: flex;
-    flex-direction: column;
-    z-index: -1;
-    box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.5);
-}
-
-.banner-image {
-    opacity: 0.5;
 }
 
 #anime-title {

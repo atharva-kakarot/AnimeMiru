@@ -9,14 +9,18 @@ function router() {
     const route = routes[path];
 
     if (route) {
+        if (history.state && history.state.localStorageState) {
+            for (const key in history.state.localStorageState) {
+                localStorage.setItem(key, history.state.localStorageState[key]);
+            }
+        }
         route();
     }
     else {
         document.getElementById('anime-div').innerHTML = '404 Page Not Found';
     }
 }
-
-window.addEventListener('hashchange', router);
+window.addEventListener('popstate', router);
 window.addEventListener('load', router);
 
 
@@ -42,7 +46,6 @@ function localStorageFunc(str) {
     localStorage.setItem("favourites", str.favourites);
     localStorage.setItem("score", str.averageScore);
     localStorage.setItem("id", str.id);
-    // localStorage.setItem("banner image", str.bannerImage);
 
     const sourceMap = {
         "ORIGINAL": "Original",
@@ -168,7 +171,14 @@ function localStorageFunc(str) {
     str.format = format[str.format] || str.format;
     localStorage.setItem("format", str.format);
 
-    window.location.href = "#/anime_about";
+    const localStorageState = {};
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        localStorageState[key] = localStorage.getItem(key);
+    }
+
+    history.pushState({ localStorageState }, null, '#/anime_about');
+    router();
 }
 
 function nullfunc(str) {
@@ -892,19 +902,6 @@ function homePageDiv() {
 function animeAboutDiv() {
     animeHomePageDiv.style.display = "none";
     animeAboutDetailsDiv.style.display = "block";
-
-    // const bannerImageDiv = document.getElementById("banner-image-div");
-    // const bannerImage = document.createElement("img");
-    // bannerImage.classList.add("banner-image");
-    // bannerImage.src = localStorage.getItem("banner image");
-
-    // if (bannerImage.src === "http://127.0.0.1:5500/null") {
-    //     localStorage.removeItem("banner image");
-    //     bannerImageDiv.style.display = "none";
-    // }
-    // else {
-    //     bannerImageDiv.appendChild(bannerImage);
-    // }
 
     const animeImage = document.getElementById("anime-image");
     animeImage.src = localStorage.getItem("image");
