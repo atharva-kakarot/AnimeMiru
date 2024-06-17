@@ -99,7 +99,7 @@ body {
     object-fit: cover;
 }
 
-.search-anime-details-main-div{
+.search-anime-details-main-div {
     display: flex;
 }
 
@@ -228,7 +228,7 @@ body {
 }
 
 .airing-now-anime-details {
-    
+
     width: fit-content;
     margin: 10px;
     text-align: center;
@@ -290,7 +290,8 @@ body {
 
 /* ----------------------------------------Anime full details div css--------------------------------------------------------- */
 
-#anime-div, #anime-full-details-div {
+#anime-div,
+#anime-full-details-div {
     display: none;
 }
 
@@ -405,6 +406,7 @@ body {
     border-radius: 10px;
     float: left;
     margin: 20px 0px;
+    margin-right: 20px;
     background-color: rgb(40, 40, 40);
 }
 
@@ -440,4 +442,94 @@ body {
 
 .title-elements:hover {
     cursor: pointer;
+}
+
+/* -----------------------------------Media queries---------------------------------------------------------------------------- */
+
+@media screen and (max-width: 980px) {
+    #name-header {
+        font-size: 50px;
+    }
+
+    #input-box {
+        font-size: 40px;
+    }
+
+    #search-button {
+        font-size: 50px;
+    }
+
+    #container {
+        margin-top: 95px;
+        margin-left: 293px;
+    }
+
+    .search-anime-title {
+        font-size: 30px;
+    }
+
+    #currently-airing-header {
+        margin-top: 150px;
+        font-size: 60px;
+    }
+
+    #upcoming-anime-header,
+    #popular-anime-header,
+    #top-anime-header {
+        font-size: 60px;
+    }
+
+    .currently-airing-scroll-buttons {
+        font-size: 50px;
+        margin-top: 160px;
+    }
+
+    .scroll-buttons {
+        font-size: 50px;
+    }
+
+    #title-div {
+        margin-top: 97px;
+
+    }
+
+    .anime-title {
+        font-size: 25px;
+    }
+
+    #anime-title,
+    #anime-title-jap,
+    #anime-title-eng,
+    #genre-div {
+        font-size: 33px;
+    }
+
+    #anime-outermost-details-div {
+        margin-top: 346px;
+        width: fit-content;
+    }
+
+    #relations-header,
+    #synopsis-header {
+        font-size: 35px;
+    }
+
+    #synopsis-div,
+    #relations-div {
+        font-size: 30px;
+    }
+
+    #relations-table tr {
+        font-size: 30px;
+        height: 50px;
+    }
+
+    #relations-table td:first-child {
+        width: 185px;
+    }
+
+    #anime-stats-table,
+    #anime-info-table {
+        font-size: 22px;
+    }
 }
