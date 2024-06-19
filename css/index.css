@@ -140,7 +140,6 @@ body {
     width: 207px;
     height: 270px;
     contain: content;
-    border: 1px solid black;
     left: 0;
     right: 0;
     margin: auto;
@@ -218,7 +217,6 @@ body {
     width: 257px;
     height: 320px;
     contain: content;
-    border: 1px solid black;
     left: 0;
     right: 0;
     margin: auto;
@@ -305,21 +303,16 @@ body {
     font-family: 'Quicksand';
     display: flex;
     flex-direction: column;
-    /* background-color: rgb(40, 40, 40); */
 }
 
-#anime-title {
-    margin-left: 20px;
-    float: left;
-    width: fit-content;
+#title-table {
+    font-size: 30px;
+    font-weight: 550;
+    margin: 15px;
 }
 
-#anime-title-jap,
-#anime-title-eng {
-    margin-top: -15px;
-    margin-left: 20px;
-    float: left;
-    width: fit-content;
+#title-table td:first-child {
+    width: 160px;
 }
 
 #anime-outermost-details-div {
@@ -372,9 +365,8 @@ body {
     font-size: 20px;
     float: left;
     width: fit-content;
-    margin-top: -13px;
     margin-left: 20px;
-    margin-bottom: 21px;
+    margin-bottom: 20px;
 }
 
 #anime-details-main-div {
