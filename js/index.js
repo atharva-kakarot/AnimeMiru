@@ -46,6 +46,7 @@ function localStorageFunc(str) {
     localStorage.setItem("favourites", str.favourites);
     localStorage.setItem("score", str.averageScore);
     localStorage.setItem("id", str.id);
+    localStorage.setItem("banner image", str.bannerImage);
 
     const sourceMap = {
         "ORIGINAL": "Original",
@@ -398,7 +399,7 @@ query ($title: String) {
     }
 
     function handleData(data) {
-        console.log(data, "Search anime");
+        // console.log(data, "Search anime");
         for (const anime of data.data.Page.media) {
             if (data.data.Page.media.length === 1) {
                 container.style.height = "241px";
@@ -551,7 +552,7 @@ function homePageDiv() {
     }
 
     function handleAiringNowData(data) {
-        console.log(data, "Currently airing anime");
+        // console.log(data, "Currently airing anime");
         for (const anime of data.data.Page.media) {
             const animeCard = document.createElement("div");
             animeCard.classList.add("airing-now-anime-cards");
@@ -714,7 +715,7 @@ function homePageDiv() {
     }
 
     function handlePopularAnimeData(data) {
-        console.log(data, "Popular anime data");
+        // console.log(data, "Popular anime data");
         for (const anime of data.data.Page.media) {
             const animeCard = document.createElement("div");
             animeCard.classList.add("anime-cards");
@@ -859,7 +860,7 @@ function homePageDiv() {
     }
 
     function handleTopAnimeData(data) {
-        console.log(data, "Top anime data");
+        // console.log(data, "Top anime data");
         for (const anime of data.data.Page.media) {
             const animeCard = document.createElement("div");
             animeCard.classList.add("anime-cards");
@@ -902,6 +903,16 @@ function homePageDiv() {
 function animeAboutDiv() {
     animeHomePageDiv.style.display = "none";
     animeAboutDetailsDiv.style.display = "block";
+
+    let bannerImage = document.getElementById("banner-image");
+
+    if (localStorage.getItem("banner image") === "null") {
+        bannerImage.style.display = "none";
+    }
+    else {
+        bannerImage.style.display = "block";
+        bannerImage.src = localStorage.getItem("banner image");
+    }
 
     const animeImage = document.getElementById("anime-image");
     animeImage.src = localStorage.getItem("image");
@@ -1076,9 +1087,9 @@ function animeAboutDiv() {
         titleElements[i].classList.add("title-elements");
 
         titleElements[i].addEventListener('click', function (event) {
-            console.log(event.target.id);
+            // console.log(event.target.id);
             const animeTitle = titleElements[i].textContent;
-            console.log(titleIds[parseInt(event.target.id.slice(-1))]);
+            // console.log(titleIds[parseInt(event.target.id.slice(-1))]);
 
             function fetchAnimeData(title) {
                 var query = `
@@ -1171,9 +1182,8 @@ function animeAboutDiv() {
                 }
 
                 function handleData(data) {
-                    console.log(data);
+                    // console.log(data);
                     localStorageFunc(data.data.Media);
-                    animeAboutDiv();
                 }
 
                 function handleError(error) {

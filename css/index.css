@@ -305,7 +305,7 @@ body {
     font-family: 'Quicksand';
     display: flex;
     flex-direction: column;
-    background-color: rgb(40, 40, 40);
+    /* background-color: rgb(40, 40, 40); */
 }
 
 #anime-title {
@@ -390,6 +390,13 @@ body {
     border-radius: 10px;
 }
 
+#banner-image {
+    width: 100%;
+    position: absolute;
+    z-index: -1;
+    opacity: 0.5;
+}
+
 #anime-stats-div {
     width: fit-content;
     height: fit-content;
@@ -442,94 +449,4 @@ body {
 
 .title-elements:hover {
     cursor: pointer;
-}
-
-/* -----------------------------------Media queries---------------------------------------------------------------------------- */
-
-@media screen and (max-width: 980px) {
-    #name-header {
-        font-size: 50px;
-    }
-
-    #input-box {
-        font-size: 40px;
-    }
-
-    #search-button {
-        font-size: 50px;
-    }
-
-    #container {
-        margin-top: 95px;
-        margin-left: 293px;
-    }
-
-    .search-anime-title {
-        font-size: 30px;
-    }
-
-    #currently-airing-header {
-        margin-top: 150px;
-        font-size: 60px;
-    }
-
-    #upcoming-anime-header,
-    #popular-anime-header,
-    #top-anime-header {
-        font-size: 60px;
-    }
-
-    .currently-airing-scroll-buttons {
-        font-size: 50px;
-        margin-top: 160px;
-    }
-
-    .scroll-buttons {
-        font-size: 50px;
-    }
-
-    #title-div {
-        margin-top: 97px;
-
-    }
-
-    .anime-title {
-        font-size: 25px;
-    }
-
-    #anime-title,
-    #anime-title-jap,
-    #anime-title-eng,
-    #genre-div {
-        font-size: 33px;
-    }
-
-    #anime-outermost-details-div {
-        margin-top: 346px;
-        width: fit-content;
-    }
-
-    #relations-header,
-    #synopsis-header {
-        font-size: 35px;
-    }
-
-    #synopsis-div,
-    #relations-div {
-        font-size: 30px;
-    }
-
-    #relations-table tr {
-        font-size: 30px;
-        height: 50px;
-    }
-
-    #relations-table td:first-child {
-        width: 185px;
-    }
-
-    #anime-stats-table,
-    #anime-info-table {
-        font-size: 22px;
-    }
 }
