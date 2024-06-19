@@ -902,7 +902,7 @@ function homePageDiv() {
 
 function animeAboutDiv() {
     animeHomePageDiv.style.display = "none";
-    animeAboutDetailsDiv.style.display = "block";
+    animeAboutDetailsDiv.style.display = "inline-block";
 
     let bannerImage = document.getElementById("banner-image");
 

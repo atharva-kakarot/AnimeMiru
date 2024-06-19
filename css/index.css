@@ -12,6 +12,7 @@ body {
     width: 100%;
     background-color: rgb(20, 20, 20);
     z-index: 1;
+    /* margin-top: -76px; */
 }
 
 #name-header {
@@ -52,7 +53,7 @@ body {
     width: 497px;
     float: left;
     margin-left: 184px;
-    margin-top: 65px;
+    margin-top: -5px;
     display: none;
     position: fixed;
     z-index: 1;
@@ -294,15 +295,16 @@ body {
 }
 
 #title-div {
-    position: absolute;
     height: fit-content;
     left: 0;
     right: 0;
     margin: auto;
-    margin-top: 69px;
     font-family: 'Quicksand';
     display: flex;
     flex-direction: column;
+    background-color: rgb(40, 40, 40);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
 #title-table {
@@ -319,16 +321,14 @@ body {
     display: flex;
     flex-direction: column;
     height: fit-content;
-    position: absolute;
     left: 0;
     right: 0;
     margin: auto;
-    margin-top: 262px;
 }
 
 #synopsis-div,
 #relations-div {
-    border-radius: 10px;
+    border-radius: 20px;
     margin: 20px;
     padding: 20px;
     font-family: 'Quicksand';
@@ -379,20 +379,20 @@ body {
     height: fit-content;
     float: left;
     margin: 20px;
-    border-radius: 10px;
+    border-radius: 20px;
 }
 
 #banner-image {
     width: 100%;
-    position: absolute;
-    z-index: -1;
-    opacity: 0.5;
+    margin-top: 76px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
 
 #anime-stats-div {
     width: fit-content;
     height: fit-content;
-    border-radius: 10px;
+    border-radius: 20px;
     float: left;
     margin: 20px 0px;
     margin-right: 20px;
@@ -402,7 +402,7 @@ body {
 #anime-details-div {
     width: fit-content;
     height: fit-content;
-    border-radius: 10px;
+    border-radius: 20px;
     float: left;
     margin: 20px 0px;
     margin-right: 20px;
@@ -441,4 +441,135 @@ body {
 
 .title-elements:hover {
     cursor: pointer;
+}
+
+/* ------------------------------------------Media Queries------------------------------------------------------------ */
+
+@media screen and (max-width: 981px) {
+    
+    #name-header {
+        font-size: 50px;
+    }
+
+    #search-button {
+        font-size: 50px;
+    }
+
+    #input-box {
+        font-size: 40px;
+        padding: 20px;
+    }
+
+    #title-table {
+        font-size: 40px;
+    }
+
+    #title-table td:first-child {
+        width: 230px;
+    }
+
+    #anime-full-details-div {
+        margin-top: 111px;
+    }
+
+    #anime-outermost-details-div {
+        position: static;
+        margin-top: 0px;
+    }
+
+    #title-div {
+        position: static;
+    }
+
+    #genre-div {
+        display: inline-flex;
+        float: left;
+        font-size: 30px;
+    }
+    
+    #banner-image {
+        left: 0;
+        right: 0;
+        margin: auto;
+        margin-top: -10px;
+    }
+
+    #synopsis-div {
+        font-size: 8px;
+    }
+
+    #anime-details-main-div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #anime-image {
+        width: 500px;
+    }
+
+    #anime-stats-div {
+        margin: 0px;
+        width: 90%;
+    }
+
+    #anime-stats-table, #anime-info-table {
+        font-size: 40px;
+        width: 90%;
+    }
+
+    #anime-stats-table tr, #anime-info-table tr {
+        height: 45px;
+    }
+
+    #anime-stats-table td:first-child, #anime-info-table td:first-child {
+        text-align: left;
+    }
+
+    #anime-stats-table td:nth-child(2), #anime-info-table td:nth-child(2) {
+        text-align: right;
+    }
+
+    #anime-details-div {
+        margin: 0px;
+        margin-top: 20px;
+        width: 90%;
+    }
+
+    #synopsis-div {
+        margin: 50px;
+        margin-top: 20px;
+        font-size: 15px;
+    }
+
+    #relations-div {
+        margin: 50px;
+        margin-top: -30px;
+    }
+
+    #relations-header {
+        margin-bottom: 40px;
+    }
+
+    #relations-table tr {
+        font-size: 40px;
+        height: 60px;
+    }
+    
+    #relations-table td:first-child {
+        width: 280px;
+    }
+}
+
+/* ---------------------------------------homepage media query----------------------------------------------------------------------*/
+
+#anime-div {
+    border: 1px solid white;
+}
+
+#currently-airing-header {
+    border: 1px solid white;
+    margin-top: 150px;
+    font-size: 50px;
 }
