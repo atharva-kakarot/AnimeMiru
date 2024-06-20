@@ -455,7 +455,7 @@ body {
     }
 
     #input-box {
-        font-size: 40px;
+        font-size: 30px;
         padding: 20px;
     }
 
@@ -493,8 +493,12 @@ body {
         margin-top: -10px;
     }
 
-    #synopsis-div {
-        font-size: 8px;
+    #synopsis-div, #relations-div {
+        margin: 50px;
+        margin-top: 20px;
+        font-size: 16px;
+        text-align: center;
+        padding: 20px 50px;
     }
 
     #anime-details-main-div {
@@ -540,12 +544,6 @@ body {
         width: 90%;
     }
 
-    #synopsis-div {
-        margin: 50px;
-        margin-top: 20px;
-        font-size: 15px;
-    }
-
     #relations-div {
         margin: 50px;
         margin-top: -30px;
@@ -577,7 +575,7 @@ body {
     }
 
     #anime-div {
-        margin-bottom: 120px;
+        margin-bottom: 50px;
     }
 
     #currently-airing-header {
@@ -666,11 +664,10 @@ body {
     }
 
     .search-anime-details-table {
-        font-size: 22px;
+        font-size: 20px;
     }
 
     .search-anime-details-table tr {
-        height: 32.5px;
+        height: 32px;
     }
-
 }

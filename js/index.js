@@ -999,35 +999,35 @@ function animeAboutDiv() {
         `<table id="anime-info-table">
         <tr>
             <td>Type:</td>
-            <td>${type}</td>
+            <td><i class="fa-solid fa-photo-film"></i> ${type}</td>
         </tr>
         <tr>
             <td>Episodes:</td>
-            <td>${episodes}</td>
+            <td><i class="fa-solid fa-tv"></i> ${episodes}</td>
         </tr>
         <tr>
             <td>Duration:</td>
-            <td>${duration} min</td>
+            <td><i class="fa-regular fa-clock"></i> ${duration} min</td>
         </tr>
         <tr>
             <td>Broadcast:</td>
-            <td>${startDay}/${startMonth}/${startYear} to ${endDay}/${endMonth}/${endYear}</td>
+            <td><i class="fa-solid fa-tower-broadcast"></i> ${startDay}/${startMonth}/${startYear} to ${endDay}/${endMonth}/${endYear}</td>
         </tr>
         <tr>
             <td>Status:</td>
-            <td>${statusKey}</td>
+            <td><i class="fa-solid fa-bars-progress"></i> ${statusKey}</td>
         </tr>
         <tr>
             <td>Source:</td>
-            <td>${source}</td>
+            <td><i class="fa-brands fa-sourcetree"></i> ${source}</td>
         </tr>
         <tr>
             <td>Studios:</td>
-            <td>${studios}</td>
+            <td><i class="fa-solid fa-building"></i> ${studios}</td>
         </tr>
         <tr>
             <td>Season:</td>
-            <td>${aniSeason}</td>
+            <td><i class="fa-regular fa-calendar"></i> ${aniSeason}</td>
         </tr>
     </table>`;
 
@@ -1042,15 +1042,15 @@ function animeAboutDiv() {
         `<table id="anime-stats-table">
         <tr>
             <td>Score:</td>
-            <td>${score}% (${scoredBy})</td>
+            <td><i class="fa-solid fa-star" style="color:gold"></i> ${score}% (${scoredBy})</td>
         </tr>
         <tr>
             <td>Favourites:</td>
-            <td>#${favourites}</td>
+            <td><i class="fa-solid fa-heart" style="color:red"></i> #${favourites}</td>
         </tr>
         <tr>
             <td>Popularity:</td>
-            <td>#${popularity}</td>
+            <td><i class="fa-solid fa-chart-simple" style="color:lightgreen"></i> #${popularity}</td>
         </tr>
     </table>`;
 
