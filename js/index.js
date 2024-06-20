@@ -172,6 +172,8 @@ function localStorageFunc(str) {
     str.format = format[str.format] || str.format;
     localStorage.setItem("format", str.format);
 
+    document.body.scrollTo(0,0);
+
     const localStorageState = {};
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
@@ -941,7 +943,7 @@ function animeAboutDiv() {
 
     function capitalizeFirstLetter(str) {
         if (str === "null") {
-            return "Unavailable";
+            return "N/A";
         }
 
         return str.replace(/\w/, function (char) {
@@ -951,7 +953,7 @@ function animeAboutDiv() {
 
     function nullfunc(str) {
         if (str === "null") {
-            return "Unavailable";
+            return "N/A";
         }
         else {
             return str;
