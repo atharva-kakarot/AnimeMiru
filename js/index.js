@@ -232,7 +232,7 @@ function animeContainer(str) {
     details.classList.add("search-anime-details");
     details.innerHTML = `
     <h1 class="search-anime-title">${str.title.romaji}</h1>
-    <table style="margin-left: 7px; height: 100px">
+    <table style="margin-left: 7px; height: 100px" class="search-anime-details-table">
     <tr>
     <td><i class="fa-solid fa-tv"></i>&nbsp;&nbsp;${updatedFormatString} (${episodes} Episodes)</td>
     </tr>
