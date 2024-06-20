@@ -12,7 +12,6 @@ body {
     width: 100%;
     background-color: rgb(20, 20, 20);
     z-index: 1;
-    /* margin-top: -76px; */
 }
 
 #name-header {
@@ -288,6 +287,11 @@ body {
 
 /* ----------------------------------------Anime full details div css--------------------------------------------------------- */
 
+#anime-whole-div {
+    margin-top: 69px;
+    height: fit-content;
+}
+
 #anime-div,
 #anime-full-details-div {
     display: none;
@@ -383,7 +387,6 @@ body {
 
 #banner-image {
     width: 100%;
-    margin-top: 76px;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
 }
@@ -445,6 +448,9 @@ body {
 /* ------------------------------------------Media Queries------------------------------------------------------------ */
 
 @media screen and (max-width: 981px) {
+    #anime-whole-div {
+        margin-top: -15px;
+    }
 
     #name-header {
         font-size: 50px;
@@ -490,7 +496,6 @@ body {
         left: 0;
         right: 0;
         margin: auto;
-        margin-top: -10px;
     }
 
     #synopsis-div, #relations-div {
