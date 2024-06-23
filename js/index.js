@@ -47,6 +47,16 @@ function localStorageFunc(str) {
     localStorage.setItem("score", str.averageScore);
     localStorage.setItem("id", str.id);
     localStorage.setItem("banner image", str.bannerImage);
+    localStorage.setItem("trailer", str.trailer);
+
+    if (str.trailer === null) {
+        localStorage.setItem("link id", "N/A");
+        localStorage.setItem("thumbnail", "N/A");
+    }
+    else if (str.trailer != null) {
+        localStorage.setItem("link id", str.trailer.id);
+        localStorage.setItem("thumbnail", str.trailer.thumbnail);
+    }
 
     const sourceMap = {
         "ORIGINAL": "Original",
@@ -172,7 +182,7 @@ function localStorageFunc(str) {
     str.format = format[str.format] || str.format;
     localStorage.setItem("format", str.format);
 
-    document.body.scrollTo(0,0);
+    document.body.scrollTo(0, 0);
 
     const localStorageState = {};
     for (let i = 0; i < localStorage.length; i++) {
@@ -331,6 +341,10 @@ query ($title: String) {
       }
       season
       episodes
+      trailer {
+        id
+        thumbnail
+      }
       relations {
         edges {
             id
@@ -462,6 +476,10 @@ function homePageDiv() {
             }
             bannerImage
             episodes
+            trailer {
+              id
+              thumbnail
+            }
             format
             duration
             stats {
@@ -663,6 +681,10 @@ function homePageDiv() {
                     }
                     source
                     favourites
+                    trailer {
+                        id
+                        thumbnail
+                    }
                     startDate {
                         year
                         month
@@ -802,6 +824,10 @@ function homePageDiv() {
                     }
                     source
                     favourites
+                    trailer {
+                        id
+                        thumbnail
+                    }
                     popularity
                     relations {
                         edges {
@@ -930,6 +956,23 @@ function animeAboutDiv() {
     const animeTitleEng = document.getElementById("anime-title-eng");
     const titleEngKey = localStorage.getItem("title english");
     animeTitleEng.innerText = `${nullfunc(titleEngKey)}`;
+
+    const animeTrailerDiv = document.getElementById("anime-trailer-div");
+
+    animeTrailerDiv.innerHTML = "N/A";
+
+    if (localStorage.getItem("trailer") === "null") {
+        animeTrailerDiv.innerHTML = `<h1 id="trailer-header">Trailer</h1>
+                                     <h1 style="font-family: Quicksand; font-size: 20px; font-weight: 500">N/A</h1>`
+    }
+    else {
+        const linkId = localStorage.getItem("link id");
+        animeTrailerDiv.innerHTML = `
+                                 <h1 id="trailer-header">Trailer</h1>
+                                 <a href="https://www.youtube.com/watch?v=${linkId}">
+                                 <img src="${localStorage.getItem("thumbnail")}" id="link-img">
+                                 </a>`;
+    }
 
     const synopsisDiv = document.getElementById("synopsis-div");
     const synopsis = nullfunc(localStorage.getItem("description"));
@@ -1070,7 +1113,7 @@ function animeAboutDiv() {
     else {
         const dataLength = Math.min(relationTypes.length, relationTitles.length, titleIds.length);
         relationsDiv.innerHTML = "";
-        relationsDiv.innerHTML =`<h1 id="relations-header">Related Anime</h1>`
+        relationsDiv.innerHTML = `<h1 id="relations-header">Related Anime</h1>`
         for (let i = 0; i < dataLength; i++) {
             relationsDiv.innerHTML += `
     <table id="relations-table">
@@ -1116,6 +1159,10 @@ function animeAboutDiv() {
       }
       season
       episodes
+      trailer {
+        id
+        thumbnail
+      }
       relations {
         edges {
             id
@@ -1184,7 +1231,7 @@ function animeAboutDiv() {
                 }
 
                 function handleData(data) {
-                    // console.log(data);
+                    console.log(data);
                     localStorageFunc(data.data.Media);
                 }
 

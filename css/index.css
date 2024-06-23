@@ -377,6 +377,32 @@ body {
     flex-direction: row;
 }
 
+#anime-stats-trailer-div {
+    display: flex;
+    flex-direction: column;
+}
+
+#anime-trailer-div {
+    background-color: rgb(40, 40, 40);
+    margin-right: 20px;
+    border-radius: 20px;
+}
+
+#trailer-header {
+    font-family: 'Quicksand';
+    font-weight: 500;
+    margin: 20px;
+    margin-bottom: 0px;
+    font-size: 30px;
+}
+
+#link-img {
+    width: 250px;
+    margin: 20px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+}
+
 #anime-image {
     width: 400px;
     height: fit-content;
@@ -399,6 +425,13 @@ body {
     margin: 20px 0px;
     margin-right: 20px;
     background-color: rgb(40, 40, 40);
+}
+
+#trailer-link {
+    margin: 0px 20px;
+    margin-left: 0px;
+    border: none;
+    border-radius: 20px;
 }
 
 #anime-details-div {
@@ -519,7 +552,12 @@ body {
 
     #anime-stats-div {
         margin: 0px;
-        width: 90%;
+        width: 600px;
+    }
+
+    #anime-trailer-div {
+        margin: 20px 0px;
+        margin-bottom: 0px;
     }
 
     #anime-stats-table,
