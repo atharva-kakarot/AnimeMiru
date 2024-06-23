@@ -1041,7 +1041,8 @@ function animeAboutDiv() {
 
     const animeDetailsDiv = document.getElementById("anime-details-div");
     animeDetailsDiv.innerHTML =
-        `<table id="anime-info-table">
+        `<h1 id="info-header">Information</h1>
+        <table id="anime-info-table">
         <tr>
             <td>Type:</td>
             <td><i class="fa-solid fa-photo-film"></i> ${type}</td>
@@ -1084,7 +1085,8 @@ function animeAboutDiv() {
 
     const animeStatsDiv = document.getElementById("anime-stats-div");
     animeStatsDiv.innerHTML =
-        `<table id="anime-stats-table">
+        `<h1 id="stats-header">Statistics</h1>
+        <table id="anime-stats-table">
         <tr>
             <td>Score:</td>
             <td><i class="fa-solid fa-star" style="color:gold"></i> ${score}% (${scoredBy})</td>

@@ -388,7 +388,9 @@ body {
     border-radius: 20px;
 }
 
-#trailer-header {
+#trailer-header,
+#info-header,
+#stats-header {
     font-family: 'Quicksand';
     font-weight: 500;
     margin: 20px;
