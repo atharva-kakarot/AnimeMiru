@@ -533,7 +533,8 @@ body {
         margin: auto;
     }
 
-    #synopsis-div, #relations-div {
+    #synopsis-div,
+    #relations-div {
         margin: 50px;
         margin-top: 20px;
         font-size: 16px;
@@ -608,7 +609,7 @@ body {
     }
 
     /* ---------------------------------------homepage media query----------------------------------------------------------------------*/
-     
+
     #container {
         margin-top: 100px;
         margin-left: 293px;
@@ -678,7 +679,10 @@ body {
     }
 
     #popular-anime-header,
-    #top-anime-header {
+    #top-anime-header,
+    #trailer-header,
+    #info-header,
+    #stats-header {
         font-size: 50px;
     }
 
@@ -699,7 +703,8 @@ body {
         margin: 20px;
     }
 
-    .pop-anime-details, .top-anime-details {
+    .pop-anime-details,
+    .top-anime-details {
         margin-top: -10px;
         height: 129px;
     }
