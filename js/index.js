@@ -1233,7 +1233,7 @@ function animeAboutDiv() {
                 }
 
                 function handleData(data) {
-                    console.log(data);
+                    // console.log(data);
                     localStorageFunc(data.data.Media);
                 }
 
