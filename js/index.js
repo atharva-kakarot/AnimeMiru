@@ -573,6 +573,7 @@ function homePageDiv() {
 
     function handleAiringNowData(data) {
         // console.log(data, "Currently airing anime");
+        airingNowDiv.innerHTML = "";
         for (const anime of data.data.Page.media) {
             const animeCard = document.createElement("div");
             animeCard.classList.add("airing-now-anime-cards");
@@ -740,6 +741,7 @@ function homePageDiv() {
 
     function handlePopularAnimeData(data) {
         // console.log(data, "Popular anime data");
+        popAnimeDiv.innerHTML = "";
         for (const anime of data.data.Page.media) {
             const animeCard = document.createElement("div");
             animeCard.classList.add("anime-cards");
@@ -889,6 +891,7 @@ function homePageDiv() {
 
     function handleTopAnimeData(data) {
         // console.log(data, "Top anime data");
+        topAnimeDiv.innerHTML = "";
         for (const anime of data.data.Page.media) {
             const animeCard = document.createElement("div");
             animeCard.classList.add("anime-cards");
