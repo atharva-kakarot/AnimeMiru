@@ -372,6 +372,13 @@ body {
     margin-bottom: 20px;
 }
 
+.genre-sub-div {
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin-right: 6px;
+    background-color: rgb(65, 65, 65);
+}
+
 #anime-details-main-div {
     display: flex;
     flex-direction: row;
@@ -410,7 +417,7 @@ body {
     height: fit-content;
     float: left;
     margin: 20px;
-    border-radius: 20px;
+    border-radius: 10px;
 }
 
 #banner-image {

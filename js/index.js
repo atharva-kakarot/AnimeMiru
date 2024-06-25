@@ -118,7 +118,7 @@ function localStorageFunc(str) {
     const genres = str.genres;
 
     for (let i = 0; i < genres.length; i++) {
-        genreList.push(" " + genres[i]);
+        genreList.push(genres[i]);
     }
 
     localStorage.setItem("genre", genreList);
@@ -983,9 +983,14 @@ function animeAboutDiv() {
                          <p>${synopsis}</p>`;
 
     const genreDiv = document.getElementById("genre-div");
-    const genreList = localStorage.getItem("genre");
+    const genreList = localStorage.getItem("genre").split(",");
+    
+    genreDiv.innerHTML = "";
+    for (let i = 0; i < genreList.length; i++) {
+        genreDiv.innerHTML += `<span class="genre-sub-div">${genreList[i]}</span>`;
+    }
 
-    genreDiv.innerText = `${genreList}`;
+    
 
     function capitalizeFirstLetter(str) {
         if (str === "null") {
@@ -1096,11 +1101,11 @@ function animeAboutDiv() {
         </tr>
         <tr>
             <td>Favourites:</td>
-            <td><i class="fa-solid fa-heart" style="color:red"></i> #${favourites}</td>
+            <td><i class="fa-solid fa-heart" style="color:red"></i> ${favourites}</td>
         </tr>
         <tr>
             <td>Popularity:</td>
-            <td><i class="fa-solid fa-chart-simple" style="color:lightgreen"></i> #${popularity}</td>
+            <td><i class="fa-solid fa-chart-simple" style="color:lightgreen"></i> ${popularity}</td>
         </tr>
     </table>`;
 
