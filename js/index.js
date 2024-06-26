@@ -989,7 +989,6 @@ function animeAboutDiv() {
     for (let i = 0; i < genreList.length; i++) {
         genreDiv.innerHTML += `<span class="genre-sub-div">${genreList[i]}</span>`;
     }
-
     
 
     function capitalizeFirstLetter(str) {

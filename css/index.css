@@ -544,9 +544,16 @@ body {
     #relations-div {
         margin: 50px;
         margin-top: 20px;
-        font-size: 16px;
         text-align: center;
         padding: 20px 50px;
+    }
+
+    #synopsis-div {
+        font-size: 17px;
+    }
+
+    #synopsis-header {
+        font-size: 40px;
     }
 
     #anime-details-main-div {
@@ -562,12 +569,16 @@ body {
 
     #anime-stats-div {
         margin: 0px;
-        width: 600px;
+        width: 870px;
     }
 
     #anime-trailer-div {
         margin: 20px 0px;
         margin-bottom: 0px;
+    }
+
+    #link-img {
+        width: 700px;
     }
 
     #anime-stats-table,
@@ -578,7 +589,7 @@ body {
 
     #anime-stats-table tr,
     #anime-info-table tr {
-        height: 45px;
+        height: 60px;
     }
 
     #anime-stats-table td:first-child,
@@ -604,6 +615,7 @@ body {
 
     #relations-header {
         margin-bottom: 40px;
+        font-size: 40px;
     }
 
     #relations-table tr {
