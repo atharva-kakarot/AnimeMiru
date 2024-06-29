@@ -1,11 +1,11 @@
 const routes = {
-    '/': homePageDiv,
-    '/anime/': animeAboutDiv,
+    '/home/anime': homePageDiv,
+    'id=': animeAboutDiv,
 };
 
 
 function router() {
-    const path = window.location.hash.slice(1) || '/';
+    const path = window.location.hash.slice(1) || '/home/anime';
     const updatedPath = path.replace(/\d+/, "");
     const route = routes[updatedPath];
 
@@ -191,7 +191,7 @@ function localStorageFunc(str) {
         localStorageState[key] = localStorage.getItem(key);
     }
 
-    history.pushState({ localStorageState }, null, `#/anime/${str.id}`);
+    history.pushState({ localStorageState }, null, `#id=${str.id}`);
     router();
 }
 
