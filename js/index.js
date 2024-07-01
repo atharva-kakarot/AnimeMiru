@@ -590,7 +590,7 @@ function homePageDiv() {
             const details = document.createElement("div");
             details.classList.add("airing-now-anime-details");
             details.innerHTML = `
-                    <p class="anime-title">${anime.title.romaji}</p>
+                    <p class="airing-now-anime-title">${anime.title.romaji}</p>
                     <table class="airing-now-details-table">
                     <tr>
                         <td>Score:</td>

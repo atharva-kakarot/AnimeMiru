@@ -136,6 +136,17 @@ body {
     text-align: center;
 }
 
+.airing-now-anime-title {
+    max-width: 250px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: 'Quicksand';
+    margin-top: 10px;
+}
+
 .image {
     width: 207px;
     height: 270px;
@@ -180,8 +191,8 @@ body {
 #popular-anime-container,
 #upcoming-anime-container {
     margin-top: 100px;
-    display: grid;
-    grid-auto-flow: column;
+    display: flex;
+    grid-auto-flow: row;
     contain: content;
     width: 100%;
     overflow: hidden;
@@ -206,6 +217,7 @@ body {
     border-radius: 10px;
     cursor: pointer;
     transition: 0.5s;
+    width: fit-content;
 }
 
 .airing-now-anime-cards:hover {
@@ -691,9 +703,13 @@ body {
         height: 50px;
     }
 
-    .anime-title {
+    .anime-title, .airing-now-anime-title {
         margin: 0px;
         font-size: 30px;
+    }
+
+    .airing-now-anime-title {
+        max-width: 380px;
     }
 
     #popular-anime-header,
