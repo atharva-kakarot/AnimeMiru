@@ -1,11 +1,11 @@
 const routes = {
-    '/home/anime': homePageDiv,
+    '': homePageDiv,
     'id=': animeAboutDiv,
 };
 
 
 function router() {
-    const path = window.location.hash.slice(1) || '/home/anime';
+    const path = window.location.hash.slice(1) || '';
     const updatedPath = path.replace(/\d+/, "");
     const route = routes[updatedPath];
 
