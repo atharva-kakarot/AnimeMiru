@@ -1,5 +1,8 @@
-# animeMiru App
-**animeMiru** is a simple web application that allows users to explore and discover information about their favourite anime series. It leverages the **AniList API**, which provides anime-related data.
+## Disclaimer
+This application uses the AniList API but is not endorsed or certified by AniList. All data provided by the API is owned by AniList. For more information, please visit AniList's official website.
+
+# AnimeMiru App
+**AnimeMiru** is a simple web application that allows users to explore and discover information about their favourite anime series. It leverages the **AniList API**, which provides anime-related data.
 
 ## Features
 
